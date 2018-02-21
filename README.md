@@ -18,7 +18,7 @@ Vue.use(VueFilterDateFormat)
 
 ```html
 <template>
-  <div>{{ new Date | dateFilter('YYYY.MM.DD') }}</div>
+  <div>{{ new Date | dateFormat('YYYY.MM.DD') }}</div>
 </template>
 ```
 
