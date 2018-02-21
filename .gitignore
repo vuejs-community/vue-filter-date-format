@@ -1,0 +1,11 @@
+/.idea/
+/dist/
+/node_modules/
+
+.env
+.AppleDouble
+.DS_Store
+*.iml
+npm-debug.log
+yarn-debug.log
+yarn-error.log

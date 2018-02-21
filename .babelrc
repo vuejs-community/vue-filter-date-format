@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "add-module-exports"
+  ],
+  "presets": [
+    ["env", { "modules": "commonjs" }]
+  ]
+}
