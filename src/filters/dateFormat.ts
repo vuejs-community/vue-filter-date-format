@@ -1,4 +1,4 @@
-export const dateFormat = (date: Date = new Date(), format: string = 'YYYY.MM.DD HH:mm:ss'): string => {
+export const dateFormatFilter = (date: Date = new Date(), format: string = 'YYYY.MM.DD HH:mm:ss'): string => {
   return format
     .replace('YYYY', `${date.getFullYear()}`)
     .replace('YY', `${date.getFullYear() % 100}`)
