@@ -25,7 +25,7 @@ export const dateFormat = (input: Date, format = 'YYYY.MM.DD HH:mm:ss'): string 
 
 export default {
   install (Vue: VueConstructor): void {
-    Vue.filter('date-format', dateFormat);
+    Vue.filter('dateFormat', dateFormat);
   },
   version
 };
