@@ -6,6 +6,12 @@
   "jsRules": {
     "no-unused-expression": true
   },
+  "linterOptions": {
+    "exclude": [
+      "*.json",
+      "**/*.json"
+    ]
+  },
   "rules": {
     "ban-types": false,
     "indent": [true, "spaces", 2],

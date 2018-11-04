@@ -15,5 +15,5 @@ export const dateFormat = (date: Date = new Date(), format: string = 'YYYY.MM.DD
     .replace('mm', `${date.getMinutes()}`.padStart(2, '0'))
     .replace('m', `${date.getMinutes()}`)
     .replace('ss', `${date.getSeconds()}`.padStart(2, '0'))
-    .replace('s', `${date.getSeconds()}`)
-}
+    .replace('s', `${date.getSeconds()}`);
+};
