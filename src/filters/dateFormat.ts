@@ -2,7 +2,7 @@ export const dateFormatFilter = (date: Date = new Date(), format: string = 'YYYY
   return format
     .replace('YYYY', `${date.getFullYear()}`)
     .replace('YY', `${date.getFullYear() % 100}`)
-    .replace('MM', `${date.getMonth()}`.padStart(2, '0'))
+    .replace('MM', `${date.getMonth() + 1}`.padStart(2, '0'))
     .replace('M', `${date.getMonth() + 1}`)
     .replace('DD', `${date.getDate()}`.padStart(2, '0'))
     .replace('D', `${date.getDate()}`)
