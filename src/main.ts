@@ -6,7 +6,7 @@ export { dateFormatFilter } from './filters/dateFormat';
 
 export default {
   install(Vue: VueConstructor): void {
-    Vue.filter('date-format', dateFormatFilter);
+    Vue.filter('dateFormat', dateFormatFilter);
   },
   version
 };
