@@ -15,7 +15,7 @@
     "removeComments": false,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "target": "es2015"
+    "target": "es5"
   },
   "exclude": [
     "node_modules"
