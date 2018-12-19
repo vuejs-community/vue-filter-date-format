@@ -21,7 +21,7 @@ action "Lint" {
 }
 
 action "Build" {
-  args = "build"
+  args = "run build"
   needs = "Lint"
   uses = "actions/npm@master"
 }
