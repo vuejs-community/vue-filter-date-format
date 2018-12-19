@@ -1,6 +1,6 @@
 workflow "Main workflow" {
   on = "push"
-  resolves = ["Publish"]
+  resolves = ["Build", "Publish"]
 }
 
 action "Master" {
