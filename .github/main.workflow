@@ -1,4 +1,4 @@
-workflow "Publish to NPM" {
+workflow "Main workflow" {
   on = "push"
   resolves = ["Publish"]
 }
@@ -8,21 +8,33 @@ action "Master" {
   uses = "actions/bin/filter@master"
 }
 
-action "Tag" {
+action "Install" {
+  args = "ci"
   needs = "Master"
+  uses = "actions/npm@master"
+}
+
+action "Lint" {
+  args = "lint"
+  needs = "Install"
+  uses = "actions/npm@master"
+}
+
+action "Build" {
+  args = "build"
+  needs = "Lint"
+  uses = "actions/npm@master"
+}
+
+action "Tag" {
+  needs = "Build"
   uses = "actions/bin/filter@master"
   args = "tag"
 }
 
-action "Build" {
-  args = "install"
-  needs = "Tag"
-  uses = "actions/npm@master"
-}
-
 action "Publish" {
   args = "publish --access public"
-  needs = "Build"
+  needs = "Tag"
   uses = "actions/npm@master"
   secrets = ["NPM_AUTH_TOKEN"]
 }
