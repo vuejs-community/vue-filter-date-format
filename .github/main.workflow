@@ -1,33 +1,33 @@
 workflow "Main workflow" {
   on = "push"
-  resolves = ["Build", "Publish"]
-}
-
-action "Master" {
-  args = "branch master"
-  uses = "actions/bin/filter@master"
+  resolves = "Publish"
 }
 
 action "Install" {
   args = "ci"
-  needs = "Master"
-  uses = "actions/npm@master"
-}
-
-action "Lint" {
-  args = "run lint"
-  needs = "Install"
   uses = "actions/npm@master"
 }
 
 action "Build" {
   args = "run build"
-  needs = "Lint"
+  needs = "Install"
+  uses = "actions/npm@master"
+}
+
+action "Lint" {
+  args = "run lint"
+  needs = "Build"
+  uses = "actions/npm@master"
+}
+
+action "Test" {
+  args = "test"
+  needs = "Build"
   uses = "actions/npm@master"
 }
 
 action "Tag" {
-  needs = "Build"
+  needs = ["Lint", "Test"]
   uses = "actions/bin/filter@master"
   args = "tag"
 }
