@@ -22,15 +22,22 @@
     "build": "npm run build:esm && npm run build:cjs",
     "build:cjs": "rollup --config rollup.config.js --format cjs --file dist/index.cjs.js",
     "build:esm": "rollup --config rollup.config.js --format esm --file dist/index.esm.js",
-    "lint": "tslint -p tsconfig.json -c tslint.json"
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "ava"
   },
   "devDependencies": {
-    "rollup": "^0.67.0",
+    "@vue/test-utils": "^1.0.0-beta.28",
+    "ava": "^1.0.1",
+    "jsdom": "^13.1.0",
+    "jsdom-global": "^3.0.2",
+    "rollup": "^1.0.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-typescript": "^1.0.0",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
-    "vue": "^2.5.17"
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2",
+    "vue": "^2.5.21",
+    "wallaby-vue-compiler": "^1.0.3"
   },
   "peerDependencies": {
     "vue": "^2.0.0"
