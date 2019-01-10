@@ -15,12 +15,13 @@ export const dateFormat = (input: Date, format = 'YYYY.MM.DD HH:mm:ss'): string 
     .replace('H', `${input.getHours()}`)
     .replace('hh', padStart(`${input.getHours() % 12}`, 2, '0'))
     .replace('h', `${input.getHours() % 12}`)
-    .replace('A', input.getHours() < 12 ? 'AM' : 'PM')
-    .replace('a', input.getHours() < 12 ? 'am' : 'pm')
     .replace('mm', padStart(`${input.getMinutes()}`, 2, '0'))
     .replace('m', `${input.getMinutes()}`)
     .replace('ss', padStart(`${input.getSeconds()}`, 2, '0'))
-    .replace('s', `${input.getSeconds()}`);
+    .replace('s', `${input.getSeconds()}`)
+    // Always last
+    .replace('A', input.getHours() < 12 ? 'AM' : 'PM')
+    .replace('a', input.getHours() < 12 ? 'am' : 'pm');
 };
 
 export default {
