@@ -1,12 +1,14 @@
 import { VueConstructor } from 'vue';
 import { version } from '../package.json';
-import { dateFormatFilter } from './filters/dateFormat';
+import { IDateFormatConfig, dateFormat } from './filters/dateFormat';
 
-export { dateFormatFilter } from './filters/dateFormat';
+export { dateFormat } from './filters/dateFormat';
 
 export default {
-  install(Vue: VueConstructor): void {
-    Vue.filter('dateFormat', dateFormatFilter);
+  install(Vue: VueConstructor, baseConfig: Partial<IDateFormatConfig>): void {
+    Vue.filter('dateFormat', (date: Date, format: string, config: Partial<IDateFormatConfig> = {}) => {
+      return dateFormat(date, format, { ...config, ...baseConfig });
+    });
   },
   version
 };

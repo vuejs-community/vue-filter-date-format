@@ -1,10 +1,10 @@
 import ava, { TestInterface } from 'ava';
-import { dateFormatFilter } from './dateFormat';
+import { dateFormat } from './dateFormat';
 
 const test = ava as TestInterface<{ date?: Date }>;
 
 const macro = (t, input: Date, format: string, expected: string) => {
-  t.is(dateFormatFilter(input, format), expected);
+  t.is(dateFormat(input, format), expected);
 };
 
 const dateAm = new Date(2018, 11, 1, 10, 37, 23);
