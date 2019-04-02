@@ -4,7 +4,9 @@ export interface IDateFormatConfig {
 }
 
 const padStart = (input: string, maxLength: number = 0, fillString: string = ' '): string => {
-  return `${[...new Array(maxLength - input.length)].map(() => fillString).join('')}${input}`;
+  const length = maxLength - input.length;
+
+  return `${Array.apply(null, { length }).map(() => fillString).join('')}${input}`;
 };
 
 const defaultConfig: IDateFormatConfig = {
