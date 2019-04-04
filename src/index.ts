@@ -23,7 +23,7 @@ export const dateFormat = (
   config = { ...defaultConfig, ...config };
 
   return format
-    .replace('YYYY', `${input.getFullYear()}`)
+    .replace('YYYY', `${('0000' + input.getFullYear()).slice(-4)}`)
     .replace('YY', `${input.getFullYear() % 100}`)
     .replace('MMMM', `${config.monthNames[input.getMonth()]}`)
     .replace('MMM', `${config.monthNamesShort[input.getMonth()]}`)
