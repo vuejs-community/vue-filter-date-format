@@ -73,6 +73,13 @@ usage with config
 </script>
 ```
 
+usage with [dateParse filter](https://github.com/eduardnikolenko/vue-filter-date-parse):
+```html
+<template>
+  <div>{{ '10.10.1989' | dateParse('DD.MM.YYYY') | dateFormat('YYYY.MM.DD') }}</div>
+</template>
+```
+
 ## Format Options
 
 |        | Key    | Output                                 |
