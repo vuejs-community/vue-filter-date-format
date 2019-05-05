@@ -1,11 +1,9 @@
 export interface IDateFormatConfig {
-  monthNames: string[];
-  monthNamesShort: string[];
+  monthNames?: string[];
+  monthNamesShort?: string[];
 }
 
-const padZeros = (input: number, maxLength: number = 0): string => {
-  return `0000${input}`.slice(-maxLength);
-};
+const padZeros = (input: number, maxLength: number = 0): string => `0000${input}`.slice(-maxLength);
 
 const defaultConfig: IDateFormatConfig = {
   monthNames: [
@@ -19,11 +17,19 @@ const defaultConfig: IDateFormatConfig = {
 };
 
 export const dateFormat = (
-  date: Date,
+  input: Date,
   format: string = 'YYYY.MM.DD HH:mm:ss',
-  config: Partial<IDateFormatConfig> = {}
+  config: IDateFormatConfig = {}
 ): string => {
   config = { ...defaultConfig, ...config };
+
+  const year = input.getFullYear();
+  const month = input.getMonth() + 1;
+  const date = input.getDate();
+  const hours24 = input.getHours();
+  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  const minutes = input.getMinutes();
+  const seconds = input.getSeconds();
 
   return format
     // Normalize tokens
@@ -40,26 +46,28 @@ export const dateFormat = (
     .replace('hh', '%11%')
     .replace('h', '%12%')
     .replace('mm', '%13%')
-    .replace('ss', '%14%')
-    .replace('s', '%15%')
-    .replace('A', '%16%')
-    .replace('a', '%17%')
+    .replace('m', '%14%')
+    .replace('ss', '%15%')
+    .replace('s', '%16%')
+    .replace('A', '%17%')
+    .replace('a', '%18%')
     // Insert values
-    .replace('%01%', padZeros(date.getFullYear(), 4))
-    .replace('%02%', padZeros(date.getFullYear() % 100, 2))
-    .replace('%03%', `${config.monthNames[date.getMonth()]}`)
-    .replace('%04%', `${config.monthNamesShort[date.getMonth()]}`)
-    .replace('%05%', padZeros(date.getMonth() + 1, 2))
-    .replace('%06%', `${date.getMonth() + 1}`)
-    .replace('%07%', padZeros(date.getDate(), 2))
-    .replace('%08%', `${date.getDate()}`)
-    .replace('%09%', padZeros(date.getHours(), 2))
-    .replace('%10%', `${date.getHours()}`)
-    .replace('%11%', padZeros(date.getHours() % 12, 2))
-    .replace('%12%', `${date.getHours() % 12}`)
-    .replace('%13%', padZeros(date.getMinutes(), 2))
-    .replace('%14%', padZeros(date.getSeconds(), 2))
-    .replace('%15%', `${date.getSeconds()}`)
-    .replace('%16%', date.getHours() < 12 ? 'AM' : 'PM')
-    .replace('%17%', date.getHours() < 12 ? 'am' : 'pm');
+    .replace('%01%', padZeros(year, 4))
+    .replace('%02%', padZeros(year % 100, 2))
+    .replace('%03%', config.monthNames[month - 1])
+    .replace('%04%', config.monthNamesShort[month - 1])
+    .replace('%05%', padZeros(month, 2))
+    .replace('%06%', `${month}`)
+    .replace('%07%', padZeros(date, 2))
+    .replace('%08%', `${date}`)
+    .replace('%09%', padZeros(hours24, 2))
+    .replace('%10%', `${hours24}`)
+    .replace('%11%', padZeros(hours12, 2))
+    .replace('%12%', `${hours12}`)
+    .replace('%13%', padZeros(minutes, 2))
+    .replace('%14%', `${minutes}`)
+    .replace('%15%', padZeros(seconds, 2))
+    .replace('%16%', `${seconds}`)
+    .replace('%17%', hours24 < 12 ? 'AM' : 'PM')
+    .replace('%18%', hours24 < 12 ? 'am' : 'pm');
 };
