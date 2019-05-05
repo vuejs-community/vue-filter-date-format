@@ -23,6 +23,14 @@ export const dateFormat = (
 ): string => {
   config = { ...defaultConfig, ...config };
 
+  const year = input.getFullYear();
+  const month = input.getMonth() + 1;
+  const date = input.getDate();
+  const hours24 = input.getHours();
+  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  const minutes = input.getMinutes();
+  const seconds = input.getSeconds();
+
   return format
     // Normalize tokens
     .replace('YYYY', Tokens.YYYY)
@@ -44,25 +52,24 @@ export const dateFormat = (
     .replace('A', Tokens.A)
     .replace('a', Tokens.a)
     // Insert values
-    .replace(Tokens.YYYY, `${input.getFullYear()}`)
-    .replace(Tokens.YY, `${input.getFullYear() % 100}`)
-    .replace(Tokens.MMMM, `${config.monthNames[input.getMonth()]}`)
-    .replace(Tokens.MMM, `${config.monthNamesShort[input.getMonth()]}`)
-    .replace(Tokens.MM, padStart(`${input.getMonth() + 1}`, 2, '0'))
-    .replace(Tokens.M, `${input.getMonth() + 1}`)
-    .replace(Tokens.DD, padStart(`${input.getDate()}`, 2, '0'))
-    .replace(Tokens.D, `${input.getDate()}`)
-    .replace(Tokens.HH, padStart(`${input.getHours()}`, 2, '0'))
-    .replace(Tokens.H, `${input.getHours()}`)
-    .replace(Tokens.hh, padStart(`${input.getHours() % 12}`, 2, '0'))
-    .replace(Tokens.h, `${input.getHours() % 12}`)
-    .replace(Tokens.mm, padStart(`${input.getMinutes()}`, 2, '0'))
-    .replace(Tokens.m, `${input.getMinutes()}`)
-    .replace(Tokens.ss, padStart(`${input.getSeconds()}`, 2, '0'))
-    .replace(Tokens.s, `${input.getSeconds()}`)
-    // Always last
-    .replace(Tokens.A, input.getHours() < 12 ? 'AM' : 'PM')
-    .replace(Tokens.a, input.getHours() < 12 ? 'am' : 'pm');
+    .replace(Tokens.YYYY, `${year}`)
+    .replace(Tokens.YY, `${year % 100}`)
+    .replace(Tokens.MMMM, `${config.monthNames[month - 1]}`)
+    .replace(Tokens.MMM, `${config.monthNamesShort[month - 1]}`)
+    .replace(Tokens.MM, padStart(`${month}`, 2, '0'))
+    .replace(Tokens.M, `${month}`)
+    .replace(Tokens.DD, padStart(`${date}`, 2, '0'))
+    .replace(Tokens.D, `${date}`)
+    .replace(Tokens.HH, padStart(`${hours24}`, 2, '0'))
+    .replace(Tokens.H, `${hours24}`)
+    .replace(Tokens.hh, padStart(`${hours12}`, 2, '0'))
+    .replace(Tokens.h, `${hours12}`)
+    .replace(Tokens.mm, padStart(`${minutes}`, 2, '0'))
+    .replace(Tokens.m, `${minutes}`)
+    .replace(Tokens.ss, padStart(`${seconds}`, 2, '0'))
+    .replace(Tokens.s, `${seconds}`)
+    .replace(Tokens.A, hours24 < 12 ? 'AM' : 'PM')
+    .replace(Tokens.a, hours24 < 12 ? 'am' : 'pm');
 };
 
 export default {

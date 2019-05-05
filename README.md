@@ -67,6 +67,13 @@ usage with config
 </script>
 ```
 
+usage with [dateParse filter](https://github.com/ednikolenko/vue-filter-date-parse):
+```html
+<template>
+  <div>{{ '19.07.1956' | dateParse('DD.MM.YYYY') | dateFormat('YYYY.MM.DD') }}</div>
+</template>
+```
+
 ## Format Options
 
 |             | Key    | Output                                 |
