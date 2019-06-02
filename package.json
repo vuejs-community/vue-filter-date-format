@@ -28,7 +28,7 @@
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.29",
     "ava": "^1.4.1",
-    "jsdom": "^14.0.0",
+    "jsdom": "^15.1.1",
     "jsdom-global": "^3.0.2",
     "rollup": "^1.9.0",
     "rollup-plugin-json": "^4.0.0",
