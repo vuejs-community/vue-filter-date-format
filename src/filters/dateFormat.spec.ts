@@ -11,6 +11,12 @@ const dateAm = new Date(2018, 11, 1, 10, 37, 23);
 
 const datePm = new Date(2018, 11, 1, 13, 37, 23);
 
+test('dddd', macro, dateAm, 'dddd', 'Saturday');
+
+test('dd', macro, dateAm, 'dd', 'Sa');
+
+test('d', macro, dateAm, 'd', '6');
+
 test('DD.MM.YYYY', macro, dateAm, 'DD.MM.YYYY', '01.12.2018');
 
 test('YYYY.MM.DD', macro, dateAm, 'YYYY.MM.DD', '2018.12.01');

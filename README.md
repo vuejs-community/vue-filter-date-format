@@ -25,6 +25,13 @@ import Vue from 'vue';
 import VueFilterDateFormat from 'vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat, {
+  dayOfWeekNames: [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday'
+  ],
+  dayOfWeekNamesNamesShort: [
+    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+  ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -32,13 +39,6 @@ Vue.use(VueFilterDateFormat, {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ],
-  weekdayNames: [
-    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-    'Friday', 'Saturday'
-  ],
-  weekdayNamesShort: [
-    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
   ]
 });
 ```
@@ -63,6 +63,13 @@ usage with config
     data () {
       return {
         dateFormatConfig: {
+          dayOfWeekNames: [
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+            'Friday', 'Saturday'
+          ],
+          dayOfWeekNamesShort: [
+            'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+          ],
           monthNames: [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -70,13 +77,6 @@ usage with config
           monthNamesShort: [
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-          ],
-          weekdayNames: [
-            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-            'Friday', 'Saturday'
-          ],
-          weekdayNamesShort: [
-            'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
           ]
         }
       };
