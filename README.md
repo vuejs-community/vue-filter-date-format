@@ -21,6 +21,13 @@ import Vue from 'vue';
 import VueFilterDateFormat from 'vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat, {
+  dayOfWeekNames: [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday'
+  ],
+  dayOfWeekNamesNamesShort: [
+    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+  ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -52,6 +59,13 @@ usage with config
     data () {
       return {
         dateFormatConfig: {
+          dayOfWeekNames: [
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+            'Friday', 'Saturday'
+          ],
+          dayOfWeekNamesNamesShort: [
+            'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+          ],
           monthNames: [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -96,6 +110,9 @@ usage with [dateParse filter](https://github.com/ednikolenko/vue-filter-date-par
 |             | `m`    | 0 1 ... 58 59                          |
 | Second      | `ss`   | 00 01 ... 58 59                        |
 |             | `s`    | 0 1 ... 58 59                          |
+| Day of Week | `dddd` | Sunday Monday ... Friday Saturday      |
+|             | `dd`   | Su Mo ... Fr Sa                        |
+|             | `d`    | 0 1 ... 5 6                            |
 
 Default format is `YYYY-MM-DD HH:mm:ss`
 

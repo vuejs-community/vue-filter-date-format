@@ -1,11 +1,18 @@
 import { VueConstructor } from 'vue';
 
 import { IDateFormatConfig } from './interfaces/i-date-format-config';
+import { Tokens } from './enums/tokens';
 import { padStart } from './helpers/pad-start';
 import { version } from '../package.json';
-import { Tokens } from './enums/tokens';
 
 const defaultConfig: IDateFormatConfig = {
+  dayOfWeekNames: [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday'
+  ],
+  dayOfWeekNamesShort: [
+    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+  ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -30,6 +37,7 @@ export const dateFormat = (
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
   const minutes = input.getMinutes();
   const seconds = input.getSeconds();
+  const weekday = input.getDay();
 
   return format
     // Normalize tokens
@@ -51,6 +59,9 @@ export const dateFormat = (
     .replace('s', Tokens.s)
     .replace('A', Tokens.A)
     .replace('a', Tokens.a)
+    .replace('dddd', Tokens.dddd)
+    .replace('dd', Tokens.dd)
+    .replace('d', Tokens.d)
     // Insert values
     .replace(Tokens.YYYY, `${year}`)
     .replace(Tokens.YY, `${year % 100}`)
@@ -69,7 +80,10 @@ export const dateFormat = (
     .replace(Tokens.ss, padStart(`${seconds}`, 2, '0'))
     .replace(Tokens.s, `${seconds}`)
     .replace(Tokens.A, hours24 < 12 ? 'AM' : 'PM')
-    .replace(Tokens.a, hours24 < 12 ? 'am' : 'pm');
+    .replace(Tokens.a, hours24 < 12 ? 'am' : 'pm')
+    .replace(Tokens.dddd, config.dayOfWeekNames[weekday])
+    .replace(Tokens.dd, config.dayOfWeekNamesShort[weekday])
+    .replace(Tokens.d, `${weekday}`);
 };
 
 export default {
