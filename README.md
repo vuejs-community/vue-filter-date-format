@@ -25,6 +25,13 @@ import Vue from 'vue';
 import VueFilterDateFormat from 'vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat, {
+  dayOfWeekNames: [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday'
+  ],
+  dayOfWeekNamesNamesShort: [
+    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+  ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -56,6 +63,13 @@ usage with config
     data () {
       return {
         dateFormatConfig: {
+          dayOfWeekNames: [
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+            'Friday', 'Saturday'
+          ],
+          dayOfWeekNamesShort: [
+            'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+          ],
           monthNames: [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -80,26 +94,29 @@ usage with [dateParse filter](https://github.com/eduardnikolenko/vue-filter-date
 
 ## Format Options
 
-|        | Key    | Output                                 |
-| ------ | ------ | -------------------------------------- |
-| Year   | `YYYY` | 1970 1971 ... 2029 2030                |
-|        | `YY`   | 70 71 ... 29 30                        |
-| Month  | `MMMM` | January February ... November December |
-|        | `MMM`  | Jan Feb ... Nov Dec                    |
-|        | `MM`   | 01 02 ... 11 12                        |
-|        | `M`    | 1 2 ... 11 12                          |
-| Day    | `DD`   | 01 02 ... 30 31                        |
-|        | `D`    | 1 2 ... 30 31                          |
-| Hour   | `HH`   | 00 01 ... 22 23                        |
-|        | `H`    | 0 1 ... 22 23                          |
-|        | `hh`   | 01 02 ... 11 12                        |
-|        | `h`    | 1 2 ... 11 12                          |
-| AM/PM  | `A`    | AM PM                                  |
-|        | `a`    | am pm                                  |
-| Minute | `mm`   | 00 01 ... 58 59                        |
-|        | `m`    | 0 1 ... 58 59                          |
-| Second | `ss`   | 00 01 ... 58 59                        |
-|        | `s`    | 0 1 ... 58 59                          |
+|             | Key    | Output                                 |
+| ----------- | ------ | -------------------------------------- |
+| Year        | `YYYY` | 1970 1971 ... 2029 2030                |
+|             | `YY`   | 70 71 ... 29 30                        |
+| Month       | `MMMM` | January February ... November December |
+|             | `MMM`  | Jan Feb ... Nov Dec                    |
+|             | `MM`   | 01 02 ... 11 12                        |
+|             | `M`    | 1 2 ... 11 12                          |
+| Day         | `DD`   | 01 02 ... 30 31                        |
+|             | `D`    | 1 2 ... 30 31                          |
+| Hour        | `HH`   | 00 01 ... 22 23                        |
+|             | `H`    | 0 1 ... 22 23                          |
+|             | `hh`   | 01 02 ... 11 12                        |
+|             | `h`    | 1 2 ... 11 12                          |
+| AM/PM       | `A`    | AM PM                                  |
+|             | `a`    | am pm                                  |
+| Minute      | `mm`   | 00 01 ... 58 59                        |
+|             | `m`    | 0 1 ... 58 59                          |
+| Second      | `ss`   | 00 01 ... 58 59                        |
+|             | `s`    | 0 1 ... 58 59                          |
+| Day of Week | `dddd` | Sunday Monday ... Friday Saturday      |
+|             | `dd`   | Su Mo ... Fr Sa                        |
+|             | `d`    | 0 1 ... 5 6                          
 
 Default format is `YYYY.MM.DD HH:mm:ss`
 

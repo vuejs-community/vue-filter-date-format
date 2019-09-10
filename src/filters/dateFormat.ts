@@ -1,4 +1,6 @@
 export interface IDateFormatConfig {
+  dayOfWeekNames?: string[];
+  dayOfWeekNamesShort?: string[];
   monthNames?: string[];
   monthNamesShort?: string[];
 }
@@ -6,6 +8,13 @@ export interface IDateFormatConfig {
 const padZeros = (input: number, maxLength: number = 0): string => `0000${input}`.slice(-maxLength);
 
 const defaultConfig: IDateFormatConfig = {
+  dayOfWeekNames: [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday'
+  ],
+  dayOfWeekNamesShort: [
+    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+  ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -30,6 +39,7 @@ export const dateFormat = (
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
   const minutes = input.getMinutes();
   const seconds = input.getSeconds();
+  const weekday = input.getDay();
 
   return format
     // Normalize tokens
@@ -51,6 +61,9 @@ export const dateFormat = (
     .replace('s', '%16%')
     .replace('A', '%17%')
     .replace('a', '%18%')
+    .replace('dddd', '%19%')
+    .replace('dd', '%20%')
+    .replace('d', '%21%')
     // Insert values
     .replace('%01%', padZeros(year, 4))
     .replace('%02%', padZeros(year % 100, 2))
@@ -69,5 +82,8 @@ export const dateFormat = (
     .replace('%15%', padZeros(seconds, 2))
     .replace('%16%', `${seconds}`)
     .replace('%17%', hours24 < 12 ? 'AM' : 'PM')
-    .replace('%18%', hours24 < 12 ? 'am' : 'pm');
+    .replace('%18%', hours24 < 12 ? 'am' : 'pm')
+    .replace('%19%', config.dayOfWeekNames[weekday])
+    .replace('%20%', config.dayOfWeekNamesShort[weekday])
+    .replace('%21%', `${weekday}`);
 };
