@@ -31,21 +31,3 @@ jobs:
       matrix:
         node: [10, 12]
         os: [macOS, Ubuntu, Windows]
-
-  publish:
-    name: Publish
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          version: 12
-          registry-url: https://npm.pkg.github.com/
-      - name: Publish
-        if: github.event == 'push'
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets. NPM_AUTH_TOKEN }}
