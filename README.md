@@ -29,7 +29,7 @@ Vue.use(VueFilterDateFormat, {
     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
     'Friday', 'Saturday'
   ],
-  dayOfWeekNamesNamesShort: [
+  dayOfWeekNamesShort: [
     'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
   ],
   monthNames: [
