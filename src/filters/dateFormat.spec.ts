@@ -47,6 +47,6 @@ test('YYYY.MM.DD hh.mm.ss a (AM)', macro, dateAm, 'YYYY.MM.DD hh.mm.ss a', '2018
 
 test('YYYY.MM.DD hh.mm.ss a (PM)', macro, datePm, 'YYYY.MM.DD hh.mm.ss a', '2018.09.01 01.37.23 pm');
 
-test('MM/DD/YYYY', macro, dateAm, 'MM/DD/YYYY', '12/01/2018');
+test('MM/DD/YYYY', macro, dateAm, 'MM/DD/YYYY', '09/01/2018');
 
-test('YYYY-MM-DD', macro, dateAm, 'YYYY-MM-DD', '2018-12-01');
+test('YYYY-MM-DD', macro, dateAm, 'YYYY-MM-DD', '2018-09-01');
