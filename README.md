@@ -5,6 +5,7 @@ Simple datetime filter for Vue.js
 [![License](https://img.shields.io/npm/l/vue-filter-date-format.svg)](/LICENSE)
 [![Downloads](https://img.shields.io/npm/dm/vue-filter-date-format.svg)](https://npmcharts.com/compare/vue-filter-date-format?minimal=true)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=eduardnikolenko/vue-filter-date-format)](https://dependabot.com)
+[![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
 ## Installation
 
