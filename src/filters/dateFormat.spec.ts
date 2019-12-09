@@ -11,6 +11,8 @@ const dateAm = new Date(2018, 8, 1, 10, 37, 23);
 
 const datePm = new Date(2018, 8, 1, 13, 37, 23);
 
+const datePm0 = new Date(2018, 8, 1, 12, 37, 23);
+
 test('YYYY', macro, dateAm, 'YYYY', '2018');
 
 test('YY', macro, dateAm, 'YY', '18');
@@ -46,6 +48,12 @@ test('YYYY.MM.DD hh.mm.ss A (PM)', macro, datePm, 'YYYY.MM.DD hh.mm.ss A', '2018
 test('YYYY.MM.DD hh.mm.ss a (AM)', macro, dateAm, 'YYYY.MM.DD hh.mm.ss a', '2018.09.01 10.37.23 am');
 
 test('YYYY.MM.DD hh.mm.ss a (PM)', macro, datePm, 'YYYY.MM.DD hh.mm.ss a', '2018.09.01 01.37.23 pm');
+
+test('YYYY.MM.DD h.mm.ss a (AM)', macro, dateAm, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 10.37.23 am');
+
+test('YYYY.MM.DD h.mm.ss a (PM)', macro, datePm, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 1.37.23 pm');
+
+test('YYYY.MM.DD h.mm.ss a (PM) 2', macro, datePm0, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 12.37.23 pm');
 
 test('MM/DD/YYYY', macro, dateAm, 'MM/DD/YYYY', '09/01/2018');
 

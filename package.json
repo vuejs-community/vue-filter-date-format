@@ -37,6 +37,7 @@
     "tslint": "^5.15.0",
     "typescript": "^3.4.2",
     "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10",
     "wallaby-vue-compiler": "^1.0.5"
   },
   "peerDependencies": {
