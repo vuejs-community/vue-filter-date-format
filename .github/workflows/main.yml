@@ -27,5 +27,3 @@ jobs:
         run: npm run lint
       - name: Test
         run: npm test
-      - name: Code review with Danger.js
-        uses: danger/danger-js@9.1.8
