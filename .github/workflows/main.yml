@@ -10,15 +10,15 @@ on:
 
 jobs:
   build:
-    name: Run on ${{ matrix.os }} with Node.js ${{ matrix.node }}
-    runs-on: ${{ matrix.os }}-latest
+    name: Run on Ubuntu 18.04 with Node.js 12
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          version: ${{ matrix.node }}
+          version: 12
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -29,7 +29,3 @@ jobs:
         run: npm test
       - name: Code review with Danger.js
         uses: danger/danger-js@9.1.8
-    strategy:
-      matrix:
-        node: [10, 12]
-        os: [macOS, Ubuntu, Windows]
