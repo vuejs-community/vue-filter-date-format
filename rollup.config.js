@@ -1,5 +1,5 @@
-import rollupPluginJson from 'rollup-plugin-json';
-import rollupPluginTypeScript from 'rollup-plugin-typescript';
+import rollupPluginJson from '@rollup/plugin-json';
+import rollupPluginTypeScript from '@wessberg/rollup-plugin-ts';
 
 export default {
   input: './src/index.ts',

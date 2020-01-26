@@ -1,6 +1,5 @@
 export default {
   cache: true,
-  compileEnhancements: false,
   concurrency: 4,
   extensions: [
     'ts',
@@ -9,14 +8,12 @@ export default {
   files: [
     'src/**/*.spec.ts'
   ],
+  ignoredByWatcher: [
+    '!src/**/*.spec.ts'
+  ],
   require: [
     'ts-node/register',
     './ava.setup.js'
-  ],
-  sources: [
-    'src/**/*.ts',
-    'src/**/*.vue',
-    '!src/**/*.spec.ts'
   ],
   typescript: true
 };
