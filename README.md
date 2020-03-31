@@ -1,16 +1,16 @@
-# vue-filter-date-format
+# @vuejs-community/vue-filter-date-format
 Simple date formatting filter for Vue.js
 
 ## Installation
 
 install from npm
 ```bash
-$ npm install vue-filter-date-format
+$ npm install @vuejs-community/vue-filter-date-format
 ```
 and register in you Vue app
 ```js
 import Vue from 'vue';
-import VueFilterDateFormat from 'vue-filter-date-format';
+import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat);
 ```
@@ -18,7 +18,7 @@ Vue.use(VueFilterDateFormat);
 or register in you Vue app with config
 ```js
 import Vue from 'vue';
-import VueFilterDateFormat from 'vue-filter-date-format';
+import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat, {
   dayOfWeekNames: [
@@ -118,4 +118,4 @@ Default format is `YYYY-MM-DD HH:mm:ss`
 
 ## License
 
-MIT © [Ed Nikolenko](https://github.com/ednikolenko)
+MIT © [Vue.js Community](https://github.com/vuejs-community)

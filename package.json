@@ -1,5 +1,5 @@
 {
-  "name": "vue-filter-date-format",
+  "name": "@vuejs-community/vue-filter-date-format",
   "description": "Simple date formatting filter for Vue.js",
   "keywords": [
     "vue",
@@ -19,26 +19,24 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ednikolenko/vue-filter-date-format.git"
+    "url": "git+https://github.com/vuejs-community/vue-filter-date-format.git"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:cjs": "rollup --config rollup.config.js --format cjs --file dist/index.cjs.js",
-    "build:esm": "rollup --config rollup.config.js --format esm --file dist/index.esm.js",
+    "build": "rollup --config rollup.config.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "ava"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-json": "^4.0.3",
     "@vue/test-utils": "^1.0.0-beta.31",
-    "@wessberg/rollup-plugin-ts": "^1.2.13",
+    "@wessberg/rollup-plugin-ts": "^1.2.24",
     "ava": "^3.0.0",
     "jsdom": "^16.0.1",
     "jsdom-global": "^3.0.2",
-    "rollup": "^1.29.1",
+    "rollup": "^2.8.2",
     "ts-node": "^8.6.2",
-    "tslint": "^6.0.0",
-    "typescript": "^3.7.5",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
     "wallaby-vue-compiler": "^1.0.6"
