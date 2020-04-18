@@ -123,4 +123,4 @@ Default format is `YYYY.MM.DD HH:mm:ss`
 
 ## License
 
-MIT © [Eduard Nikolenko](https://github.com/eduardnikolenko)
+MIT © [Vue.js Community](https://github.com/vuejs-community)
