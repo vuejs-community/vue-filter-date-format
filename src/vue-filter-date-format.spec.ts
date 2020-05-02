@@ -1,5 +1,6 @@
 import ava, { TestInterface } from 'ava';
-import { dateFormat } from './dateFormat';
+
+import { dateFormat } from './vue-filter-date-format';
 
 const test = ava as TestInterface<{ date?: Date }>;
 

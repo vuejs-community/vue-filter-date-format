@@ -1,3 +1,7 @@
+import { VueConstructor } from 'vue';
+
+import { version } from '../package.json';
+
 export interface IDateFormatConfig {
   dayOfWeekNames?: string[];
   dayOfWeekNamesShort?: string[];
@@ -25,11 +29,7 @@ const defaultConfig: IDateFormatConfig = {
   ]
 };
 
-export const dateFormat = (
-  input: Date,
-  format: string = 'YYYY.MM.DD HH:mm:ss',
-  config: IDateFormatConfig = {}
-): string => {
+export function dateFormat(input: Date, format: string = 'YYYY.MM.DD HH:mm:ss', config: IDateFormatConfig = {}): string {
   config = { ...defaultConfig, ...config };
 
   const year = input.getFullYear();
@@ -86,4 +86,13 @@ export const dateFormat = (
     .replace('%19%', config.dayOfWeekNames[weekday])
     .replace('%20%', config.dayOfWeekNamesShort[weekday])
     .replace('%21%', `${weekday}`);
+}
+
+export default {
+  install(Vue: VueConstructor, baseConfig: IDateFormatConfig): void {
+    Vue.filter('dateFormat', (date: Date, format: string, config: IDateFormatConfig = {}) => {
+      return dateFormat(date, format, { ...baseConfig, ...config });
+    });
+  },
+  version
 };

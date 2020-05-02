@@ -1,29 +1,23 @@
-# vue-filter-date-format
+# @vuejs-community/vue-filter-date-format
 Simple datetime filter for Vue.js
-
-[![NPM Version](https://img.shields.io/npm/v/vue-filter-date-format.svg)](https://www.npmjs.com/package/vue-filter-date-format)
-[![License](https://img.shields.io/npm/l/vue-filter-date-format.svg)](/LICENSE)
-[![Downloads](https://img.shields.io/npm/dm/vue-filter-date-format.svg)](https://npmcharts.com/compare/vue-filter-date-format?minimal=true)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=vuejs-community/vue-filter-date-format)](https://dependabot.com)
-[![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
 ## Installation
 
 install from npm
 ```bash
-$ npm install vue-filter-date-format
+$ npm install @vuejs-community/vue-filter-date-format
 ```
 and register in you Vue app
 ```js
 import Vue from 'vue';
-import VueFilterDateFormat from 'vue-filter-date-format';
+import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat);
 ```
 or register in you Vue app with config
 ```js
 import Vue from 'vue';
-import VueFilterDateFormat from 'vue-filter-date-format';
+import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
 
 Vue.use(VueFilterDateFormat, {
   dayOfWeekNames: [
@@ -86,7 +80,7 @@ usage with config
 </script>
 ```
 
-usage with [dateParse filter](https://github.com/eduardnikolenko/vue-filter-date-parse):
+usage with [dateParse filter](https://github.com/vuejs-community/vue-filter-date-parse):
 ```html
 <template>
   <div>{{ '10.10.1989' | dateParse('DD.MM.YYYY') | dateFormat('YYYY.MM.DD') }}</div>
@@ -117,7 +111,7 @@ usage with [dateParse filter](https://github.com/eduardnikolenko/vue-filter-date
 |             | `s`    | 0 1 ... 58 59                          |
 | Day of Week | `dddd` | Sunday Monday ... Friday Saturday      |
 |             | `dd`   | Su Mo ... Fr Sa                        |
-|             | `d`    | 0 1 ... 5 6                          
+|             | `d`    | 0 1 ... 5 6
 
 Default format is `YYYY.MM.DD HH:mm:ss`
 
