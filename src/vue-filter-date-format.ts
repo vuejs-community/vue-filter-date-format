@@ -7,6 +7,7 @@ export interface IDateFormatConfig {
   dayOfWeekNamesShort?: string[];
   monthNames?: string[];
   monthNamesShort?: string[];
+  useUTC: boolean
 }
 
 const padZeros = (input: number, maxLength: number = 0): string => `0000${input}`.slice(-maxLength);
@@ -26,20 +27,21 @@ const defaultConfig: IDateFormatConfig = {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ]
+  ],
+  useUTC: false
 };
 
 export function dateFormat(input: Date, format: string = 'YYYY.MM.DD HH:mm:ss', config: IDateFormatConfig = {}): string {
   config = { ...defaultConfig, ...config };
 
-  const year = input.getFullYear();
-  const month = input.getMonth() + 1;
-  const date = input.getDate();
-  const hours24 = input.getHours();
+  const year = config.useUTC ? input.getUTCFullYear() : input.getFullYear();
+  const month = 1 + (config.useUTC ? input.getUTCMonth() : input.getMonth());
+  const date = config.useUTC ? input.getUTCDate() : input.getDate();
+  const hours24 = config.useUTC ? input.getUTCHours() : input.getHours();
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
-  const minutes = input.getMinutes();
-  const seconds = input.getSeconds();
-  const weekday = input.getDay();
+  const minutes = config.useUTC ? input.getUTCMinutes() : input.getMinutes();
+  const seconds = config.useUTC ? input.getUTCSeconds() : input.getSeconds();
+  const weekday = config.useUTC ? input.getUTCDay() : input.getDay();
 
   return format
     // Normalize tokens
