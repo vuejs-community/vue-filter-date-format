@@ -35,7 +35,9 @@ Vue.use(VueFilterDateFormat, {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ]
+  ],
+  // Timezone offset, in minutes (0 - UTC, undefined - current)
+  timezone: 0
 });
 ```
 
@@ -73,7 +75,9 @@ usage with config
           monthNamesShort: [
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-          ]
+          ],
+          // Timezone offset, in minutes (0 - UTC, undefined - current)
+          timezone: 0
         }
       };
     }
@@ -81,7 +85,7 @@ usage with config
 </script>
 ```
 
-usage with [dateParse filter](https://github.com/ednikolenko/vue-filter-date-parse):
+usage with [dateParse filter](https://github.com/vuejs-community/vue-filter-date-parse):
 ```html
 <template>
   <div>{{ '19.07.1956' | dateParse('DD.MM.YYYY') | dateFormat('YYYY.MM.DD') }}</div>

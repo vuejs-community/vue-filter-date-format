@@ -3,4 +3,5 @@ export interface IDateFormatConfig {
   dayOfWeekNamesShort?: string[];
   monthNames?: string[];
   monthNamesShort?: string[];
+  timezone?: number;
 }
