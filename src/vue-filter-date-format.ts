@@ -7,6 +7,7 @@ export interface IDateFormatConfig {
   dayOfWeekNamesShort?: string[];
   monthNames?: string[];
   monthNamesShort?: string[];
+  timezone?: number;
 }
 
 const padZeros = (input: number, maxLength: number = 0): string => `0000${input}`.slice(-maxLength);
@@ -32,14 +33,18 @@ const defaultConfig: IDateFormatConfig = {
 export function dateFormat(input: Date, format: string = 'YYYY.MM.DD HH:mm:ss', config: IDateFormatConfig = {}): string {
   config = { ...defaultConfig, ...config };
 
-  const year = input.getFullYear();
-  const month = input.getMonth() + 1;
-  const date = input.getDate();
-  const hours24 = input.getHours();
+  if (config.timezone) {
+    input.setMinutes(input.getMinutes() + config.timezone);
+  }
+
+  const year = config.timezone ? input.getUTCFullYear() : input.getFullYear();
+  const month = (config.timezone ? input.getUTCMonth() : input.getMonth()) + 1;
+  const date = config.timezone ? input.getUTCDate() : input.getDate();
+  const hours24 = config.timezone ? input.getUTCHours() : input.getHours();
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
-  const minutes = input.getMinutes();
-  const seconds = input.getSeconds();
-  const weekday = input.getDay();
+  const minutes = config.timezone ? input.getUTCMinutes() : input.getMinutes();
+  const seconds = config.timezone ? input.getUTCSeconds() : input.getSeconds();
+  const weekday = config.timezone ? input.getUTCDay() : input.getDay();
 
   return format
     // Normalize tokens

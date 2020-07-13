@@ -34,7 +34,9 @@ Vue.use(VueFilterDateFormat, {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ]
+  ],
+  // Timezone offset, in minutes (0 - UTC, 180 - Russia, undefined - current)
+  timezone: 0
 });
 ```
 
@@ -72,7 +74,9 @@ usage with config
           monthNamesShort: [
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-          ]
+          ],
+          // Timezone offset, in minutes (0 - UTC, 180 - Russia, undefined - current)
+          timezone: 0
         }
       };
     }
