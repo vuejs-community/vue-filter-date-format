@@ -1,8 +1,23 @@
 import { VueConstructor } from 'vue';
 
+import { DateFormats } from './enums/date-formats';
+import { HoursFormats } from './enums/hours-formats';
+import { MinutesFormats } from './enums/minutes-formats';
+import { MonthFormats } from './enums/month-formats';
+import { PeriodFormats } from './enums/period-formats';
+import { SecondsFormats } from './enums/seconds-formats';
+import { WeekdayFormats } from './enums/weekday-formats';
+import { YearFormats } from './enums/year-formats';
 import { IDateFormatConfig } from './interfaces/i-date-format-config';
 import { Tokens } from './enums/tokens';
-import { padStart } from './helpers/pad-start';
+import { dateTransformer } from './transformers/date-transformer';
+import { hoursTransformer } from './transformers/hours-transformer';
+import { minutesTransformer } from './transformers/minutes-transformer';
+import { monthTransformer } from './transformers/month-transformer';
+import { periodTransformer } from './transformers/period-transformer';
+import { secondsTransformer } from './transformers/seconds-transformer';
+import { weekdayTransformer } from './transformers/weekday-transformer';
+import { yearTransformer } from './transformers/year-transformer';
 import { version } from '../package.json';
 
 const defaultConfig: IDateFormatConfig = {
@@ -20,7 +35,16 @@ const defaultConfig: IDateFormatConfig = {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ]
+  ],
+
+  dateTransformer,
+  hoursTransformer,
+  minutesTransformer,
+  monthTransformer,
+  periodTransformer,
+  secondsTransformer,
+  weekdayTransformer,
+  yearTransformer
 };
 
 export const dateFormat = (
@@ -34,60 +58,51 @@ export const dateFormat = (
     input.setMinutes(input.getMinutes() + config.timezone);
   }
 
-  const year = config.timezone ? input.getUTCFullYear() : input.getFullYear();
-  const month = (config.timezone ? input.getUTCMonth() : input.getMonth()) + 1;
-  const date = config.timezone ? input.getUTCDate() : input.getDate();
-  const hours24 = config.timezone ? input.getUTCHours() : input.getHours();
-  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
-  const minutes = config.timezone ? input.getUTCMinutes() : input.getMinutes();
-  const seconds = config.timezone ? input.getUTCSeconds() : input.getSeconds();
-  const weekday = config.timezone ? input.getUTCDay() : input.getDay();
-
   return format
     // Normalize tokens
-    .replace('YYYY', Tokens.YYYY)
-    .replace('YY', Tokens.YY)
-    .replace('MMMM', Tokens.MMMM)
-    .replace('MMM', Tokens.MMM)
-    .replace('MM', Tokens.MM)
-    .replace('M', Tokens.M)
-    .replace('DD', Tokens.DD)
-    .replace('D', Tokens.D)
-    .replace('HH', Tokens.HH)
-    .replace('H', Tokens.H)
-    .replace('hh', Tokens.hh)
-    .replace('h', Tokens.h)
-    .replace('mm', Tokens.mm)
-    .replace('m', Tokens.m)
-    .replace('ss', Tokens.ss)
-    .replace('s', Tokens.s)
-    .replace('A', Tokens.A)
-    .replace('a', Tokens.a)
-    .replace('dddd', Tokens.dddd)
-    .replace('dd', Tokens.dd)
-    .replace('d', Tokens.d)
+    .replace(YearFormats.YYYY, Tokens.YYYY)
+    .replace(YearFormats.YY, Tokens.YY)
+    .replace(MonthFormats.MMMM, Tokens.MMMM)
+    .replace(MonthFormats.MMM, Tokens.MMM)
+    .replace(MonthFormats.MM, Tokens.MM)
+    .replace(MonthFormats.M, Tokens.M)
+    .replace(DateFormats.DD, Tokens.DD)
+    .replace(DateFormats.D, Tokens.D)
+    .replace(HoursFormats.HH, Tokens.HH)
+    .replace(HoursFormats.H, Tokens.H)
+    .replace(HoursFormats.hh, Tokens.hh)
+    .replace(HoursFormats.h, Tokens.h)
+    .replace(MinutesFormats.mm, Tokens.mm)
+    .replace(MinutesFormats.m, Tokens.m)
+    .replace(SecondsFormats.ss, Tokens.ss)
+    .replace(SecondsFormats.s, Tokens.s)
+    .replace(PeriodFormats.A, Tokens.A)
+    .replace(PeriodFormats.a, Tokens.a)
+    .replace(WeekdayFormats.dddd, Tokens.dddd)
+    .replace(WeekdayFormats.dd, Tokens.dd)
+    .replace(WeekdayFormats.d, Tokens.d)
     // Insert values
-    .replace(Tokens.YYYY, `${year}`)
-    .replace(Tokens.YY, `${year % 100}`)
-    .replace(Tokens.MMMM, `${config.monthNames[month - 1]}`)
-    .replace(Tokens.MMM, `${config.monthNamesShort[month - 1]}`)
-    .replace(Tokens.MM, padStart(`${month}`, 2, '0'))
-    .replace(Tokens.M, `${month}`)
-    .replace(Tokens.DD, padStart(`${date}`, 2, '0'))
-    .replace(Tokens.D, `${date}`)
-    .replace(Tokens.HH, padStart(`${hours24}`, 2, '0'))
-    .replace(Tokens.H, `${hours24}`)
-    .replace(Tokens.hh, padStart(`${hours12}`, 2, '0'))
-    .replace(Tokens.h, `${hours12}`)
-    .replace(Tokens.mm, padStart(`${minutes}`, 2, '0'))
-    .replace(Tokens.m, `${minutes}`)
-    .replace(Tokens.ss, padStart(`${seconds}`, 2, '0'))
-    .replace(Tokens.s, `${seconds}`)
-    .replace(Tokens.A, hours24 < 12 ? 'AM' : 'PM')
-    .replace(Tokens.a, hours24 < 12 ? 'am' : 'pm')
-    .replace(Tokens.dddd, config.dayOfWeekNames[weekday])
-    .replace(Tokens.dd, config.dayOfWeekNamesShort[weekday])
-    .replace(Tokens.d, `${weekday}`);
+    .replace(Tokens.YYYY, yearTransformer(input, YearFormats.YYYY, config))
+    .replace(Tokens.YY, yearTransformer(input, YearFormats.YY, config))
+    .replace(Tokens.MMMM, monthTransformer(input, MonthFormats.MMMM, config))
+    .replace(Tokens.MMM, monthTransformer(input, MonthFormats.MMM, config))
+    .replace(Tokens.MM, monthTransformer(input, MonthFormats.MM, config))
+    .replace(Tokens.M, monthTransformer(input, MonthFormats.M, config))
+    .replace(Tokens.DD, dateTransformer(input, DateFormats.DD, config))
+    .replace(Tokens.D, dateTransformer(input, DateFormats.D, config))
+    .replace(Tokens.HH, hoursTransformer(input, HoursFormats.HH, config))
+    .replace(Tokens.H, hoursTransformer(input, HoursFormats.H, config))
+    .replace(Tokens.hh, hoursTransformer(input, HoursFormats.hh, config))
+    .replace(Tokens.h, hoursTransformer(input, HoursFormats.h, config))
+    .replace(Tokens.mm, minutesTransformer(input, MinutesFormats.mm, config))
+    .replace(Tokens.m, minutesTransformer(input, MinutesFormats.m, config))
+    .replace(Tokens.ss, secondsTransformer(input, SecondsFormats.ss, config))
+    .replace(Tokens.s, secondsTransformer(input, SecondsFormats.s, config))
+    .replace(Tokens.A, periodTransformer(input, PeriodFormats.A, config))
+    .replace(Tokens.a, periodTransformer(input, PeriodFormats.a, config))
+    .replace(Tokens.dddd, weekdayTransformer(input, WeekdayFormats.dddd, config))
+    .replace(Tokens.dd, weekdayTransformer(input, WeekdayFormats.dd, config))
+    .replace(Tokens.d, weekdayTransformer(input, WeekdayFormats.d, config));
 };
 
 export default {

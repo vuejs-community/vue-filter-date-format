@@ -4,4 +4,13 @@ export interface IDateFormatConfig {
   monthNames?: string[];
   monthNamesShort?: string[];
   timezone?: number;
+
+  dateTransformer?: Function;
+  hoursTransformer?: Function;
+  minutesTransformer?: Function;
+  monthTransformer?: Function;
+  periodTransformer?: Function;
+  secondsTransformer?: Function;
+  weekdayTransformer?: Function;
+  yearTransformer?: Function;
 }
