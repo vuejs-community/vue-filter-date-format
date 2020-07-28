@@ -2,15 +2,39 @@ import { VueConstructor } from 'vue';
 
 import { version } from '../package.json';
 
-export interface IDateFormatConfig {
-  dayOfWeekNames?: string[];
-  dayOfWeekNamesShort?: string[];
-  monthNames?: string[];
-  monthNamesShort?: string[];
-  timezone?: number;
-}
+import { DateFormats } from './enums/date-formats';
+import { HoursFormats } from './enums/hours-formats';
+import { MinutesFormats } from './enums/minutes-formats';
+import { MonthFormats } from './enums/month-formats';
+import { PeriodFormats } from './enums/period-formats';
+import { SecondsFormats } from './enums/seconds-formats';
+import { WeekdayFormats } from './enums/weekday-formats';
+import { YearFormats } from './enums/year-formats';
 
-const padZeros = (input: number, maxLength: number = 0): string => `0000${input}`.slice(-maxLength);
+import { dateTransformer } from './transformers/date-transformer';
+import { hoursTransformer } from './transformers/hours-transformer';
+import { minutesTransformer } from './transformers/minutes-transformer';
+import { monthTransformer } from './transformers/month-transformer';
+import { periodTransformer } from './transformers/period-transformer';
+import { secondsTransformer } from './transformers/seconds-transformer';
+import { weekdayTransformer } from './transformers/weekday-transformer';
+import { yearTransformer } from './transformers/year-transformer';
+
+export interface IDateFormatConfig {
+  dayOfWeekNames: string[];
+  dayOfWeekNamesShort: string[];
+  monthNames: string[];
+  monthNamesShort: string[];
+  timezone?: number;
+  dateTransformer: Function;
+  hoursTransformer: Function;
+  minutesTransformer: Function;
+  monthTransformer: Function;
+  periodTransformer: Function;
+  secondsTransformer: Function;
+  weekdayTransformer: Function;
+  yearTransformer: Function;
+}
 
 const defaultConfig: IDateFormatConfig = {
   dayOfWeekNames: [
@@ -27,75 +51,78 @@ const defaultConfig: IDateFormatConfig = {
   monthNamesShort: [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ]
+  ],
+  dateTransformer,
+  hoursTransformer,
+  minutesTransformer,
+  monthTransformer,
+  periodTransformer,
+  secondsTransformer,
+  weekdayTransformer,
+  yearTransformer
 };
 
-export function dateFormat(input: Date, format: string = 'YYYY.MM.DD HH:mm:ss', config: IDateFormatConfig = {}): string {
-  config = { ...defaultConfig, ...config };
+export function dateFormat(
+  input: Date,
+  format: string = 'YYYY.MM.DD HH:mm:ss',
+  customConfig: Partial<IDateFormatConfig> = {}
+): string {
+  const config: IDateFormatConfig = { ...defaultConfig, ...customConfig };
 
   if (config.timezone) {
     input.setMinutes(input.getMinutes() + config.timezone);
   }
 
-  const year = config.timezone ? input.getUTCFullYear() : input.getFullYear();
-  const month = (config.timezone ? input.getUTCMonth() : input.getMonth()) + 1;
-  const date = config.timezone ? input.getUTCDate() : input.getDate();
-  const hours24 = config.timezone ? input.getUTCHours() : input.getHours();
-  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
-  const minutes = config.timezone ? input.getUTCMinutes() : input.getMinutes();
-  const seconds = config.timezone ? input.getUTCSeconds() : input.getSeconds();
-  const weekday = config.timezone ? input.getUTCDay() : input.getDay();
-
   return format
     // Normalize tokens
-    .replace('YYYY', '%01%')
-    .replace('YY', '%02%')
-    .replace('MMMM', '%03%')
-    .replace('MMM', '%04%')
-    .replace('MM', '%05%')
-    .replace('M', '%06%')
-    .replace('DD', '%07%')
-    .replace('D', '%08%')
-    .replace('HH', '%09%')
-    .replace('H', '%10%')
-    .replace('hh', '%11%')
-    .replace('h', '%12%')
-    .replace('mm', '%13%')
-    .replace('m', '%14%')
-    .replace('ss', '%15%')
-    .replace('s', '%16%')
-    .replace('A', '%17%')
-    .replace('a', '%18%')
-    .replace('dddd', '%19%')
-    .replace('dd', '%20%')
-    .replace('d', '%21%')
+    .replace(YearFormats.YYYY, '%01%')
+    .replace(YearFormats.YY, '%02%')
+    .replace(MonthFormats.MMMM, '%03%')
+    .replace(MonthFormats.MMM, '%04%')
+    .replace(MonthFormats.MM, '%05%')
+    .replace(MonthFormats.M, '%06%')
+    .replace(DateFormats.DD, '%07%')
+    .replace(DateFormats.D, '%08%')
+    .replace(HoursFormats.HH, '%09%')
+    .replace(HoursFormats.H, '%10%')
+    .replace(HoursFormats.hh, '%11%')
+    .replace(HoursFormats.h, '%12%')
+    .replace(MinutesFormats.mm, '%13%')
+    .replace(MinutesFormats.m, '%14%')
+    .replace(SecondsFormats.ss, '%15%')
+    .replace(SecondsFormats.s, '%16%')
+    .replace(PeriodFormats.A, '%17%')
+    .replace(PeriodFormats.a, '%18%')
+    .replace(WeekdayFormats.dddd, '%19%')
+    .replace(WeekdayFormats.dd, '%20%')
+    .replace(WeekdayFormats.d, '%21%')
     // Insert values
-    .replace('%01%', padZeros(year, 4))
-    .replace('%02%', padZeros(year % 100, 2))
-    .replace('%03%', config.monthNames[month - 1])
-    .replace('%04%', config.monthNamesShort[month - 1])
-    .replace('%05%', padZeros(month, 2))
-    .replace('%06%', `${month}`)
-    .replace('%07%', padZeros(date, 2))
-    .replace('%08%', `${date}`)
-    .replace('%09%', padZeros(hours24, 2))
-    .replace('%10%', `${hours24}`)
-    .replace('%11%', padZeros(hours12, 2))
-    .replace('%12%', `${hours12}`)
-    .replace('%13%', padZeros(minutes, 2))
-    .replace('%14%', `${minutes}`)
-    .replace('%15%', padZeros(seconds, 2))
-    .replace('%16%', `${seconds}`)
-    .replace('%17%', hours24 < 12 ? 'AM' : 'PM')
-    .replace('%18%', hours24 < 12 ? 'am' : 'pm')
-    .replace('%19%', config.dayOfWeekNames[weekday])
-    .replace('%20%', config.dayOfWeekNamesShort[weekday])
-    .replace('%21%', `${weekday}`);
+    .replace('%01%', yearTransformer(input, YearFormats.YYYY, config))
+    .replace('%02%', yearTransformer(input, YearFormats.YY, config))
+    .replace('%03%', monthTransformer(input, MonthFormats.MMMM, config))
+    .replace('%04%', monthTransformer(input, MonthFormats.MMM, config))
+    .replace('%05%', monthTransformer(input, MonthFormats.MM, config))
+    .replace('%06%', monthTransformer(input, MonthFormats.M, config))
+    .replace('%07%', dateTransformer(input, DateFormats.DD, config))
+    .replace('%08%', dateTransformer(input, DateFormats.D, config))
+    .replace('%09%', hoursTransformer(input, HoursFormats.HH, config))
+    .replace('%10%', hoursTransformer(input, HoursFormats.H, config))
+    .replace('%11%', hoursTransformer(input, HoursFormats.hh, config))
+    .replace('%12%', hoursTransformer(input, HoursFormats.h, config))
+    .replace('%13%', minutesTransformer(input, MinutesFormats.mm, config))
+    .replace('%14%', minutesTransformer(input, MinutesFormats.m, config))
+    .replace('%15%', secondsTransformer(input, SecondsFormats.ss, config))
+    .replace('%16%', secondsTransformer(input, SecondsFormats.s, config))
+    .replace('%17%', periodTransformer(input, PeriodFormats.A, config))
+    .replace('%18%', periodTransformer(input, PeriodFormats.a, config))
+    .replace('%19%', weekdayTransformer(input, WeekdayFormats.dddd, config))
+    .replace('%20%', weekdayTransformer(input, WeekdayFormats.dd, config))
+    .replace('%21%', weekdayTransformer(input, WeekdayFormats.d, config));
 }
 
 export default {
-  install(Vue: VueConstructor, baseConfig: IDateFormatConfig): void {
-    Vue.filter('dateFormat', (date: Date, format: string, config: IDateFormatConfig = {}) => {
+  install(Vue: VueConstructor, baseConfig: Partial<IDateFormatConfig>): void {
+    Vue.filter('dateFormat', (date: Date, format: string, config: Partial<IDateFormatConfig> = {}) => {
       return dateFormat(date, format, { ...baseConfig, ...config });
     });
   },
