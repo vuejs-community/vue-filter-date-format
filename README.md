@@ -113,6 +113,8 @@ usage with [dateParse filter](https://github.com/vuejs-community/vue-filter-date
 |             | `m`    | 0 1 ... 58 59                          |
 | Second      | `ss`   | 00 01 ... 58 59                        |
 |             | `s`    | 0 1 ... 58 59                          |
+| Millisecond | `S`    | 0 1 ... 58 59                          |
+|             | `SSS`  | 000 001 ... 058 059                    |
 | Day of Week | `dddd` | Sunday Monday ... Friday Saturday      |
 |             | `dd`   | Su Mo ... Fr Sa                        |
 |             | `d`    | 0 1 ... 5 6
