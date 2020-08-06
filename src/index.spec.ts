@@ -8,7 +8,7 @@ const macro = (t, input: Date, format: string, expected: string) => {
   t.is(dateFormat(input, format), expected);
 };
 
-const dateAm = new Date(2018, 8, 1, 10, 37, 23);
+const dateAm = new Date(2018, 8, 1, 10, 37, 23, 59);
 
 const datePm = new Date(2018, 8, 1, 13, 37, 23);
 
@@ -35,6 +35,10 @@ test('dddd', macro, dateAm, 'dddd', 'Saturday');
 test('dd', macro, dateAm, 'dd', 'Sa');
 
 test('d', macro, dateAm, 'd', '6');
+
+test('S', macro, dateAm, 'S', '59');
+
+test('SSS', macro, dateAm, 'SSS', '590');
 
 test('DD.MM.YYYY', macro, dateAm, 'DD.MM.YYYY', '01.09.2018');
 

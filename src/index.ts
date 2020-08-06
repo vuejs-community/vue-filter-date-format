@@ -2,6 +2,7 @@ import { VueConstructor } from 'vue';
 
 import { DateFormats } from './enums/date-formats';
 import { HoursFormats } from './enums/hours-formats';
+import { MillisecondsFormats } from './enums/milliseconds-formats';
 import { MinutesFormats } from './enums/minutes-formats';
 import { MonthFormats } from './enums/month-formats';
 import { PeriodFormats } from './enums/period-formats';
@@ -12,6 +13,7 @@ import { IDateFormatConfig } from './interfaces/i-date-format-config';
 import { Tokens } from './enums/tokens';
 import { dateTransformer } from './transformers/date-transformer';
 import { hoursTransformer } from './transformers/hours-transformer';
+import { millisecondsTransformer } from './transformers/milliseconds-transformer';
 import { minutesTransformer } from './transformers/minutes-transformer';
 import { monthTransformer } from './transformers/month-transformer';
 import { periodTransformer } from './transformers/period-transformer';
@@ -39,6 +41,7 @@ const defaultConfig: IDateFormatConfig = {
 
   dateTransformer,
   hoursTransformer,
+  millisecondsTransformer,
   minutesTransformer,
   monthTransformer,
   periodTransformer,
@@ -50,7 +53,7 @@ const defaultConfig: IDateFormatConfig = {
 export const dateFormat = (
   input: Date,
   format = 'YYYY-MM-DD HH:mm:ss',
-  config: Partial<IDateFormatConfig> = {}
+  config: IDateFormatConfig = {}
 ): string => {
   config = { ...defaultConfig, ...config };
 
@@ -81,6 +84,8 @@ export const dateFormat = (
     .replace(WeekdayFormats.dddd, Tokens.dddd)
     .replace(WeekdayFormats.dd, Tokens.dd)
     .replace(WeekdayFormats.d, Tokens.d)
+    .replace(MillisecondsFormats.SSS, Tokens.SSS)
+    .replace(MillisecondsFormats.S, Tokens.S)
     // Insert values
     .replace(Tokens.YYYY, yearTransformer(input, YearFormats.YYYY, config))
     .replace(Tokens.YY, yearTransformer(input, YearFormats.YY, config))
@@ -102,7 +107,9 @@ export const dateFormat = (
     .replace(Tokens.a, periodTransformer(input, PeriodFormats.a, config))
     .replace(Tokens.dddd, weekdayTransformer(input, WeekdayFormats.dddd, config))
     .replace(Tokens.dd, weekdayTransformer(input, WeekdayFormats.dd, config))
-    .replace(Tokens.d, weekdayTransformer(input, WeekdayFormats.d, config));
+    .replace(Tokens.d, weekdayTransformer(input, WeekdayFormats.d, config))
+    .replace(Tokens.SSS, millisecondsTransformer(input, MillisecondsFormats.SSS, config))
+    .replace(Tokens.S, millisecondsTransformer(input, MillisecondsFormats.S, config));
 };
 
 export default {

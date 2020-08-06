@@ -7,6 +7,7 @@ export interface IDateFormatConfig {
 
   dateTransformer?: Function;
   hoursTransformer?: Function;
+  millisecondsTransformer?: Function;
   minutesTransformer?: Function;
   monthTransformer?: Function;
   periodTransformer?: Function;
