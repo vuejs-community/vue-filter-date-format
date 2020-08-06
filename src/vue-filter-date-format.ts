@@ -4,6 +4,7 @@ import { version } from '../package.json';
 
 import { DateFormats } from './enums/date-formats';
 import { HoursFormats } from './enums/hours-formats';
+import { MillisecondsFormats } from './enums/milliseconds-formats';
 import { MinutesFormats } from './enums/minutes-formats';
 import { MonthFormats } from './enums/month-formats';
 import { PeriodFormats } from './enums/period-formats';
@@ -13,6 +14,7 @@ import { YearFormats } from './enums/year-formats';
 
 import { dateTransformer } from './transformers/date-transformer';
 import { hoursTransformer } from './transformers/hours-transformer';
+import { millisecondsTransformer } from './transformers/milliseconds-transformer';
 import { minutesTransformer } from './transformers/minutes-transformer';
 import { monthTransformer } from './transformers/month-transformer';
 import { periodTransformer } from './transformers/period-transformer';
@@ -28,6 +30,7 @@ export interface IDateFormatConfig {
   timezone?: number;
   dateTransformer: Function;
   hoursTransformer: Function;
+  millisecondsTransformer: Function;
   minutesTransformer: Function;
   monthTransformer: Function;
   periodTransformer: Function;
@@ -54,6 +57,7 @@ const defaultConfig: IDateFormatConfig = {
   ],
   dateTransformer,
   hoursTransformer,
+  millisecondsTransformer,
   minutesTransformer,
   monthTransformer,
   periodTransformer,
@@ -96,6 +100,8 @@ export function dateFormat(
     .replace(WeekdayFormats.dddd, '%19%')
     .replace(WeekdayFormats.dd, '%20%')
     .replace(WeekdayFormats.d, '%21%')
+    .replace(MillisecondsFormats.SSS, '%22%')
+    .replace(MillisecondsFormats.S, '%23%')
     // Insert values
     .replace('%01%', yearTransformer(input, YearFormats.YYYY, config))
     .replace('%02%', yearTransformer(input, YearFormats.YY, config))
@@ -117,7 +123,9 @@ export function dateFormat(
     .replace('%18%', periodTransformer(input, PeriodFormats.a, config))
     .replace('%19%', weekdayTransformer(input, WeekdayFormats.dddd, config))
     .replace('%20%', weekdayTransformer(input, WeekdayFormats.dd, config))
-    .replace('%21%', weekdayTransformer(input, WeekdayFormats.d, config));
+    .replace('%21%', weekdayTransformer(input, WeekdayFormats.d, config))
+    .replace('%22%', millisecondsTransformer(input, MillisecondsFormats.SSS, config))
+    .replace('%23%', millisecondsTransformer(input, MillisecondsFormats.S, config));
 }
 
 export default {
