@@ -35,7 +35,7 @@
     "jsdom": "^16.2.2",
     "jsdom-global": "^3.0.2",
     "rollup": "^2.7.6",
-    "ts-node": "^8.9.1",
+    "ts-node": "^9.0.0",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "vue": "^2.6.11",
