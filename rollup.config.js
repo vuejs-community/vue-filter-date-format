@@ -13,7 +13,7 @@ export default {
     {
       exports: 'named',
       file: 'dist/index.cjs.js',
-      format: 'system',
+      format: 'commonjs',
       sourcemap: true
     }
   ],
