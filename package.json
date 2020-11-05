@@ -16,7 +16,9 @@
     "dist/vue-filter-date-format.cjs.d.ts",
     "dist/vue-filter-date-format.cjs.js",
     "dist/vue-filter-date-format.esm.d.ts",
-    "dist/vue-filter-date-format.esm.js"
+    "dist/vue-filter-date-format.esm.js",
+    "dist/vue-filter-date-format.umd.d.ts",
+    "dist/vue-filter-date-format.umd.js"
   ],
   "main": "dist/vue-filter-date-format.cjs.js",
   "module": "dist/vue-filter-date-format.esm.js",
