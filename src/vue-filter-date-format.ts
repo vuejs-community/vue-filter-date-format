@@ -45,7 +45,7 @@ const defaultConfig: IDateFormatConfig = {
     'Friday', 'Saturday'
   ],
   dayOfWeekNamesShort: [
-    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+    'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'
   ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -68,7 +68,7 @@ const defaultConfig: IDateFormatConfig = {
 
 export function dateFormat(
   input: Date,
-  format: string = 'YYYY.MM.DD HH:mm:ss',
+  format: string = 'YYYY-MM-DD HH:mm:ss',
   customConfig: Partial<IDateFormatConfig> = {}
 ): string {
   const config: IDateFormatConfig = { ...defaultConfig, ...customConfig };
