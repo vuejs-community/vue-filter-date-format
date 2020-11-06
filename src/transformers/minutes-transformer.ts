@@ -3,7 +3,7 @@ import { MinutesFormats } from '../enums/minutes-formats';
 import { padStart } from '../helpers';
 
 export function minutesTransformer(input: Date, format: MinutesFormats, config: IDateFormatConfig): string {
-  const minutes = config.timezone ? input.getUTCMinutes() : input.getMinutes();
+  const minutes = 'timezone' in config ? input.getUTCMinutes() : input.getMinutes();
 
   if (format === MinutesFormats.mm) {
     return padStart(minutes, 2, '0');

@@ -3,7 +3,7 @@ import { SecondsFormats } from '../enums/seconds-formats';
 import { padStart } from '../helpers';
 
 export function secondsTransformer(input: Date, format: SecondsFormats, config: IDateFormatConfig): string {
-  const seconds = config.timezone ? input.getUTCSeconds() : input.getSeconds();
+  const seconds = 'timezone' in config ? input.getUTCSeconds() : input.getSeconds();
 
   if (format === SecondsFormats.ss) {
     return padStart(seconds, 2, '0');

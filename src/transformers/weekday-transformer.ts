@@ -2,7 +2,7 @@ import { IDateFormatConfig } from '../vue-filter-date-format';
 import { WeekdayFormats } from '../enums/weekday-formats';
 
 export function weekdayTransformer(input: Date, format: WeekdayFormats, config: IDateFormatConfig): string {
-  const weekday = config.timezone ? input.getUTCDay() : input.getDay();
+  const weekday = 'timezone' in config ? input.getUTCDay() : input.getDay();
 
   if (format === WeekdayFormats.dddd) {
     return config.dayOfWeekNames[weekday];

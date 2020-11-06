@@ -3,7 +3,7 @@ import { MonthFormats } from '../enums/month-formats';
 import { padStart } from '../helpers';
 
 export function monthTransformer(input: Date, format: MonthFormats, config: IDateFormatConfig): string {
-  const month = (config.timezone ? input.getUTCMonth() : input.getMonth()) + 1;
+  const month = ('timezone' in config ? input.getUTCMonth() : input.getMonth()) + 1;
 
   if (format === MonthFormats.MMMM) {
     return config.monthNames[month - 1];

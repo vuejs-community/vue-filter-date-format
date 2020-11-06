@@ -3,7 +3,7 @@ import { HoursFormats } from '../enums/hours-formats';
 import { padStart } from '../helpers';
 
 export function hoursTransformer(input: Date, format: HoursFormats, config: IDateFormatConfig): string {
-  const hours24 = config.timezone ? input.getUTCHours() : input.getHours();
+  const hours24 = 'timezone' in config ? input.getUTCHours() : input.getHours();
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
 
   if (format === HoursFormats.HH) {
