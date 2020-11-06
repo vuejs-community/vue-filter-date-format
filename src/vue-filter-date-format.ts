@@ -73,7 +73,8 @@ export function dateFormat(
 ): string {
   const config: IDateFormatConfig = { ...defaultConfig, ...customConfig };
 
-  if (config.timezone) {
+  if ('timezone' in config) {
+    input = new Date(input.getTime());
     input.setMinutes(input.getMinutes() + config.timezone);
   }
 
