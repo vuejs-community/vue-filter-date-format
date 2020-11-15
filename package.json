@@ -15,7 +15,9 @@
     "dist/index.cjs.d.ts",
     "dist/index.cjs.js",
     "dist/index.esm.d.ts",
-    "dist/index.esm.js"
+    "dist/index.esm.js",
+    "dist/index.umd.d.ts",
+    "dist/index.umd.js"
   ],
   "repository": {
     "type": "git",

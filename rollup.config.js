@@ -15,6 +15,13 @@ export default {
       file: 'dist/index.cjs.js',
       format: 'commonjs',
       sourcemap: true
+    },
+    {
+      exports: 'named',
+      file: 'dist/index.umd.js',
+      format: 'umd',
+      name: 'VueFilterDateFormat',
+      sourcemap: true
     }
   ],
   plugins: [
