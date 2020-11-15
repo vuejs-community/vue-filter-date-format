@@ -26,7 +26,7 @@ Vue.use(VueFilterDateFormat, {
     'Friday', 'Saturday'
   ],
   dayOfWeekNamesShort: [
-    'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+    'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'
   ],
   monthNames: [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -66,7 +66,7 @@ usage with config
             'Friday', 'Saturday'
           ],
           dayOfWeekNamesShort: [
-            'Su', 'Mo', 'Tu', 'We', 'Tr', 'Fr', 'Sa'
+            'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'
           ],
           monthNames: [
             'January', 'February', 'March', 'April', 'May', 'June',
