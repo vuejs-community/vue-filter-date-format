@@ -2,8 +2,8 @@ import { IDateFormatConfig } from '../interfaces/i-date-format-config';
 import { HoursFormats } from '../enums/hours-formats';
 import { padStart } from '../helpers/pad-start';
 
-export function hoursTransformer(input: Date, format: HoursFormats, config: IDateFormatConfig): string {
-  const hours24 = config.timezone ? input.getUTCHours() : input.getHours();
+export const hoursTransformer = (input: Date, format: HoursFormats, config: IDateFormatConfig): string => {
+  const hours24 = 'timezone' in config ? input.getUTCHours() : input.getHours();
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
 
   if (format === HoursFormats.HH) {
@@ -20,4 +20,4 @@ export function hoursTransformer(input: Date, format: HoursFormats, config: IDat
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid hours format '${format}'`);
-}
+};

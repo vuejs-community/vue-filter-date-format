@@ -57,7 +57,7 @@ export const dateFormat = (
 ): string => {
   config = { ...defaultConfig, ...config };
 
-  if (config.timezone) {
+  if ('timezone' in config) {
     input.setMinutes(input.getMinutes() + config.timezone);
   }
 

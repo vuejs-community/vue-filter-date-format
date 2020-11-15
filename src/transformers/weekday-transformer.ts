@@ -1,8 +1,8 @@
 import { IDateFormatConfig } from '../interfaces/i-date-format-config';
 import { WeekdayFormats } from '../enums/weekday-formats';
 
-export function weekdayTransformer(input: Date, format: WeekdayFormats, config: IDateFormatConfig): string {
-  const weekday = config.timezone ? input.getUTCDay() : input.getDay();
+export const weekdayTransformer = (input: Date, format: WeekdayFormats, config: IDateFormatConfig): string => {
+  const weekday = 'timezone' in config ? input.getUTCDay() : input.getDay();
 
   if (format === WeekdayFormats.dddd) {
     return config.dayOfWeekNames[weekday];
@@ -15,4 +15,4 @@ export function weekdayTransformer(input: Date, format: WeekdayFormats, config: 
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid weekday format '${format}'`);
-}
+};

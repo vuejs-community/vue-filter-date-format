@@ -2,8 +2,8 @@ import { IDateFormatConfig } from '../interfaces/i-date-format-config';
 import { MonthFormats } from '../enums/month-formats';
 import { padStart } from '../helpers/pad-start';
 
-export function monthTransformer(input: Date, format: MonthFormats, config: IDateFormatConfig): string {
-  const month = (config.timezone ? input.getUTCMonth() : input.getMonth()) + 1;
+export const monthTransformer = (input: Date, format: MonthFormats, config: IDateFormatConfig): string => {
+  const month = ('timezone' in config ? input.getUTCMonth() : input.getMonth()) + 1;
 
   if (format === MonthFormats.MMMM) {
     return config.monthNames[month - 1];
@@ -19,4 +19,4 @@ export function monthTransformer(input: Date, format: MonthFormats, config: IDat
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid month format '${format}'`);
-}
+};

@@ -2,8 +2,8 @@ import { IDateFormatConfig } from '../interfaces/i-date-format-config';
 import { DateFormats } from '../enums/date-formats';
 import { padStart } from '../helpers/pad-start';
 
-export function dateTransformer(input: Date, format: DateFormats, config: IDateFormatConfig): string {
-  const date = config.timezone ? input.getUTCDate() : input.getDate();
+export const dateTransformer = (input: Date, format: DateFormats, config: IDateFormatConfig): string => {
+  const date = 'timezone' in config ? input.getUTCDate() : input.getDate();
 
   if (format === DateFormats.DD) {
     return padStart(`${date}`, 2);
@@ -13,4 +13,4 @@ export function dateTransformer(input: Date, format: DateFormats, config: IDateF
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid date format '${format}'`);
-}
+};
