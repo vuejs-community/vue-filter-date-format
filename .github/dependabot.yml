@@ -1,0 +1,33 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@wessberg/rollup-plugin-ts"
+    versions:
+    - 1.3.12
+  - dependency-name: rollup
+    versions:
+    - 2.38.1
+    - 2.38.3
+    - 2.39.1
+    - 2.41.0
+    - 2.41.1
+    - 2.41.2
+    - 2.41.3
+    - 2.41.4
+    - 2.41.5
+    - 2.42.0
+    - 2.42.4
+    - 2.43.1
+    - 2.45.1
+    - 2.45.2
+  - dependency-name: jsdom
+    versions:
+    - 16.5.0
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
