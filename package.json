@@ -29,7 +29,7 @@
     "test": "ava"
   },
   "devDependencies": {
-    "@ava/typescript": "^1.1.1",
+    "@ava/typescript": "^2.0.0",
     "@rollup/plugin-json": "^4.0.3",
     "@vue/test-utils": "^1.0.0-beta.33",
     "@wessberg/rollup-plugin-ts": "^1.2.24",
