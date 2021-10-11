@@ -34,7 +34,7 @@
     "@vue/test-utils": "^1.0.0-beta.33",
     "@wessberg/rollup-plugin-ts": "^1.2.24",
     "ava": "^3.8.1",
-    "jsdom": "^17.0.0",
+    "jsdom": "^18.0.0",
     "jsdom-global": "^3.0.2",
     "rollup": "^2.7.6",
     "ts-node": "^9.0.0",
