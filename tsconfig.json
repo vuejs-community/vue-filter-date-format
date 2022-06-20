@@ -5,6 +5,9 @@
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "lib": [
+      "esnext"
+    ],
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noLib": false,
