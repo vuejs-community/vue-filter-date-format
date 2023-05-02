@@ -1,66 +1,30 @@
-import { VueConstructor } from 'vue';
+import { DateFormats } from './enums/date-formats.ts';
+import { HoursFormats } from './enums/hours-formats.ts';
+import { MillisecondsFormats } from './enums/milliseconds-formats.ts';
+import { MinutesFormats } from './enums/minutes-formats.ts';
+import { MonthFormats } from './enums/month-formats.ts';
+import { PeriodFormats } from './enums/period-formats.ts';
+import { SecondsFormats } from './enums/seconds-formats.ts';
+import { WeekdayFormats } from './enums/weekday-formats.ts';
+import { YearFormats } from './enums/year-formats.ts';
+import { IDateFormatConfig } from './interfaces/i-date-format-config.ts';
+import { Tokens } from './enums/tokens.ts';
+import { defaultConfig } from './default-config.js';
+import { dateTransformer } from './transformers/date-transformer.ts';
+import { hoursTransformer } from './transformers/hours-transformer.ts';
+import { millisecondsTransformer } from './transformers/milliseconds-transformer.ts';
+import { minutesTransformer } from './transformers/minutes-transformer.ts';
+import { monthTransformer } from './transformers/month-transformer.ts';
+import { periodTransformer } from './transformers/period-transformer.ts';
+import { secondsTransformer } from './transformers/seconds-transformer.ts';
+import { weekdayTransformer } from './transformers/weekday-transformer.ts';
+import { yearTransformer } from './transformers/year-transformer.ts';
 
-import { DateFormats } from './enums/date-formats';
-import { HoursFormats } from './enums/hours-formats';
-import { MillisecondsFormats } from './enums/milliseconds-formats';
-import { MinutesFormats } from './enums/minutes-formats';
-import { MonthFormats } from './enums/month-formats';
-import { PeriodFormats } from './enums/period-formats';
-import { SecondsFormats } from './enums/seconds-formats';
-import { WeekdayFormats } from './enums/weekday-formats';
-import { YearFormats } from './enums/year-formats';
-import { IDateFormatConfig } from './interfaces/i-date-format-config';
-import { Tokens } from './enums/tokens';
-import { dateTransformer } from './transformers/date-transformer';
-import { hoursTransformer } from './transformers/hours-transformer';
-import { millisecondsTransformer } from './transformers/milliseconds-transformer';
-import { minutesTransformer } from './transformers/minutes-transformer';
-import { monthTransformer } from './transformers/month-transformer';
-import { periodTransformer } from './transformers/period-transformer';
-import { secondsTransformer } from './transformers/seconds-transformer';
-import { weekdayTransformer } from './transformers/weekday-transformer';
-import { yearTransformer } from './transformers/year-transformer';
-import { version } from '../package.json';
-
-const defaultConfig: IDateFormatConfig = {
-  dayOfWeekNames: [
-    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-    'Friday', 'Saturday'
-  ],
-  dayOfWeekNamesShort: [
-    'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'
-  ],
-  monthNames: [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ],
-  monthNamesShort: [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ],
-
-  dateTransformer,
-  hoursTransformer,
-  millisecondsTransformer,
-  minutesTransformer,
-  monthTransformer,
-  periodTransformer,
-  secondsTransformer,
-  weekdayTransformer,
-  yearTransformer
+type VueConstructor = {
+  filter(id: string, definition?: Function): Function;
 };
 
-export const dateFormat = (
-  input: Date,
-  format = 'YYYY-MM-DD HH:mm:ss',
-  config: IDateFormatConfig = {}
-): string => {
-  config = { ...defaultConfig, ...config };
-
-  if ('timezone' in config) {
-    input.setMinutes(input.getMinutes() + config.timezone);
-  }
-
+const tokenize = (format: string): string => {
   return format
     // Normalize tokens
     .replace(YearFormats.YYYY, Tokens.YYYY)
@@ -86,37 +50,116 @@ export const dateFormat = (
     .replace(WeekdayFormats.d, Tokens.d)
     .replace(MillisecondsFormats.SSS, Tokens.SSS)
     .replace(MillisecondsFormats.S, Tokens.S)
-    // Insert values
-    .replace(Tokens.YYYY, yearTransformer(input, YearFormats.YYYY, config))
-    .replace(Tokens.YY, yearTransformer(input, YearFormats.YY, config))
-    .replace(Tokens.MMMM, monthTransformer(input, MonthFormats.MMMM, config))
-    .replace(Tokens.MMM, monthTransformer(input, MonthFormats.MMM, config))
-    .replace(Tokens.MM, monthTransformer(input, MonthFormats.MM, config))
-    .replace(Tokens.M, monthTransformer(input, MonthFormats.M, config))
-    .replace(Tokens.DD, dateTransformer(input, DateFormats.DD, config))
-    .replace(Tokens.D, dateTransformer(input, DateFormats.D, config))
-    .replace(Tokens.HH, hoursTransformer(input, HoursFormats.HH, config))
-    .replace(Tokens.H, hoursTransformer(input, HoursFormats.H, config))
-    .replace(Tokens.hh, hoursTransformer(input, HoursFormats.hh, config))
-    .replace(Tokens.h, hoursTransformer(input, HoursFormats.h, config))
-    .replace(Tokens.mm, minutesTransformer(input, MinutesFormats.mm, config))
-    .replace(Tokens.m, minutesTransformer(input, MinutesFormats.m, config))
-    .replace(Tokens.ss, secondsTransformer(input, SecondsFormats.ss, config))
-    .replace(Tokens.s, secondsTransformer(input, SecondsFormats.s, config))
-    .replace(Tokens.A, periodTransformer(input, PeriodFormats.A, config))
-    .replace(Tokens.a, periodTransformer(input, PeriodFormats.a, config))
-    .replace(Tokens.dddd, weekdayTransformer(input, WeekdayFormats.dddd, config))
-    .replace(Tokens.dd, weekdayTransformer(input, WeekdayFormats.dd, config))
-    .replace(Tokens.d, weekdayTransformer(input, WeekdayFormats.d, config))
-    .replace(Tokens.SSS, millisecondsTransformer(input, MillisecondsFormats.SSS, config))
-    .replace(Tokens.S, millisecondsTransformer(input, MillisecondsFormats.S, config));
+};
+
+const transform = (tokenized: string, input: Date, config: IDateFormatConfig): string => {
+  if (tokenized.includes(Tokens.YYYY)) {
+    tokenized = tokenized.replace(Tokens.YYYY, config.yearTransformer(input, YearFormats.YYYY, config));
+  }
+  if (tokenized.includes(Tokens.YY)) {
+    tokenized = tokenized.replace(Tokens.YY, config.yearTransformer(input, YearFormats.YY, config));
+  }
+
+  if (tokenized.includes(Tokens.MMMM)) {
+    tokenized = tokenized.replace(Tokens.MMMM, config.monthTransformer(input, MonthFormats.MMMM, config));
+  }
+  if (tokenized.includes(Tokens.MMM)) {
+    tokenized = tokenized.replace(Tokens.MMM, config.monthTransformer(input, MonthFormats.MMM, config));
+  }
+  if (tokenized.includes(Tokens.MM)) {
+    tokenized = tokenized.replace(Tokens.MM, config.monthTransformer(input, MonthFormats.MM, config));
+  }
+  if (tokenized.includes(Tokens.M)) {
+    tokenized = tokenized.replace(Tokens.M, config.monthTransformer(input, MonthFormats.M, config));
+  }
+
+  if (tokenized.includes(Tokens.DD)) {
+    tokenized = tokenized.replace(Tokens.DD, config.dateTransformer(input, DateFormats.DD, config));
+  }
+  if (tokenized.includes(Tokens.D)) {
+    tokenized = tokenized.replace(Tokens.D, config.dateTransformer(input, DateFormats.D, config));
+  }
+
+  if (tokenized.includes(Tokens.HH)) {
+    tokenized = tokenized.replace(Tokens.HH, config.hoursTransformer(input, HoursFormats.HH, config));
+  }
+  if (tokenized.includes(Tokens.H)) {
+    tokenized = tokenized.replace(Tokens.H, config.hoursTransformer(input, HoursFormats.H, config));
+  }
+  if (tokenized.includes(Tokens.hh)) {
+    tokenized = tokenized.replace(Tokens.hh, config.hoursTransformer(input, HoursFormats.hh, config));
+  }
+  if (tokenized.includes(Tokens.h)) {
+    tokenized = tokenized.replace(Tokens.h, config.hoursTransformer(input, HoursFormats.h, config));
+  }
+
+  if (tokenized.includes(Tokens.mm)) {
+    tokenized = tokenized.replace(Tokens.mm, config.minutesTransformer(input, MinutesFormats.mm, config));
+  }
+  if (tokenized.includes(Tokens.m)) {
+    tokenized = tokenized.replace(Tokens.m, config.minutesTransformer(input, MinutesFormats.m, config));
+  }
+
+  if (tokenized.includes(Tokens.ss)) {
+    tokenized = tokenized.replace(Tokens.ss, config.secondsTransformer(input, SecondsFormats.ss, config));
+  }
+  if (tokenized.includes(Tokens.s)) {
+    tokenized = tokenized.replace(Tokens.s, config.secondsTransformer(input, SecondsFormats.s, config));
+  }
+
+  if (tokenized.includes(Tokens.A)) {
+    tokenized = tokenized.replace(Tokens.A, config.periodTransformer(input, PeriodFormats.A, config));
+  }
+  if (tokenized.includes(Tokens.a)) {
+    tokenized = tokenized.replace(Tokens.a, config.periodTransformer(input, PeriodFormats.a, config));
+  }
+
+  if (tokenized.includes(Tokens.dddd)) {
+    tokenized = tokenized.replace(Tokens.dddd, config.weekdayTransformer(input, WeekdayFormats.dddd, config));
+  }
+  if (tokenized.includes(Tokens.dd)) {
+    tokenized = tokenized.replace(Tokens.dd, config.weekdayTransformer(input, WeekdayFormats.dd, config));
+  }
+  if (tokenized.includes(Tokens.d)) {
+    tokenized = tokenized.replace(Tokens.d, config.weekdayTransformer(input, WeekdayFormats.d, config));
+  }
+
+  if (tokenized.includes(Tokens.SSS)) {
+    tokenized = tokenized.replace(Tokens.SSS, config.millisecondsTransformer(input, MillisecondsFormats.SSS, config));
+  }
+  if (tokenized.includes(Tokens.S)) {
+    tokenized = tokenized.replace(Tokens.S, config.millisecondsTransformer(input, MillisecondsFormats.S, config));
+  }
+
+  return tokenized;
+};
+
+export const dateFormat = (input: Date, format = 'YYYY-MM-DD HH:mm:ss', config: IDateFormatConfig = {}): string => {
+  config = {
+    dateTransformer,
+    hoursTransformer,
+    millisecondsTransformer,
+    minutesTransformer,
+    monthTransformer,
+    periodTransformer,
+    secondsTransformer,
+    weekdayTransformer,
+    yearTransformer,
+    ...defaultConfig,
+    ...config
+  };
+
+  if ('timezone' in config) {
+    input.setMinutes(input.getMinutes() + config.timezone);
+  }
+
+  return transform(tokenize(format), input, config);
 };
 
 export default {
-  install (Vue: VueConstructor, baseConfig: Partial<IDateFormatConfig>): void {
+  install(Vue: VueConstructor, baseConfig: Partial<IDateFormatConfig>): void {
     Vue.filter('dateFormat', (input: Date, format: string, config: Partial<IDateFormatConfig> = {}) => {
       return dateFormat(input, format, { ...baseConfig, ...config });
     });
-  },
-  version
+  }
 };

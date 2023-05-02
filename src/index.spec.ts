@@ -1,65 +1,140 @@
-import ava, { TestInterface } from 'ava';
+import { describe, expect, it } from 'vitest';
 
-import { dateFormat } from './index';
+import { dateFormat } from './index.ts';
 
-const test = ava as TestInterface<{ date?: Date }>;
+describe('dateFormat', () => {
+  it('DD.MM.YYYY', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'DD.MM.YYYY');
 
-const macro = (t, input: Date, format: string, expected: string) => {
-  t.is(dateFormat(input, format), expected);
-};
+    expect(dateString).toBe('01.09.2018');
+  });
 
-const dateAm = new Date(2018, 8, 1, 10, 37, 23, 59);
+  it('DD.MM.YY', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'DD.MM.YY');
 
-const datePm = new Date(2018, 8, 1, 13, 37, 23);
+    expect(dateString).toBe('01.09.18');
+  });
 
-const datePm0 = new Date(2018, 8, 1, 12, 37, 23);
+  it('MM/DD/YYYY', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'MM/DD/YYYY');
 
-test('YYYY', macro, dateAm, 'YYYY', '2018');
+    expect(dateString).toBe('09/01/2018');
+  });
 
-test('YY', macro, dateAm, 'YY', '18');
+  it('YYYY-MM-DD', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY-MM-DD');
 
-test('MMMM', macro, dateAm, 'MMMM', 'September');
+    expect(dateString).toBe('2018-09-01');
+  });
 
-test('MMM', macro, dateAm, 'MMM', 'Sep');
+  it('YYYY.MM.DD', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY.MM.DD');
 
-test('MM', macro, dateAm, 'MM', '09');
+    expect(dateString).toBe('2018.09.01');
+  });
 
-test('M', macro, dateAm, 'M', '9');
+  it('YY.M.D H.m.s.SSS (dddd)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YY.M.D H.m.s.SSS (dddd)');
 
-test('DD', macro, dateAm, 'DD', '01');
+    expect(dateString).toBe('18.9.1 10.37.23.590 (Saturday)');
+  });
 
-test('D', macro, dateAm, 'D', '1');
+  it('YY.M.D H.m.s.S (dd)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YY.M.D H.m.s.S (dd)');
 
-test('dddd', macro, dateAm, 'dddd', 'Saturday');
+    expect(dateString).toBe('18.9.1 10.37.23.59 (Sa)');
+  });
 
-test('dd', macro, dateAm, 'dd', 'Sa');
+  it('YY.M.D H.m.s (d)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YY.M.D H.m.s (d)');
 
-test('d', macro, dateAm, 'd', '6');
+    expect(dateString).toBe('18.9.1 10.37.23 (6)');
+  });
 
-test('S', macro, dateAm, 'S', '59');
+  it('DD MMM YYYY', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'DD MMM YYYY');
 
-test('SSS', macro, dateAm, 'SSS', '590');
+    expect(dateString).toBe('01 Sep 2018');
+  });
 
-test('DD.MM.YYYY', macro, dateAm, 'DD.MM.YYYY', '01.09.2018');
+  it('DD MMMM YYYY', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'DD MMMM YYYY');
 
-test('YYYY.MM.DD', macro, dateAm, 'YYYY.MM.DD', '2018.09.01');
+    expect(dateString).toBe('01 September 2018');
+  });
 
-test('YYYY.MM.DD HH.mm.ss', macro, dateAm, 'YYYY.MM.DD HH.mm.ss', '2018.09.01 10.37.23');
+  it('YYYY.MM.DD HH.mm.ss', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY.MM.DD HH.mm.ss');
 
-test('YYYY.MM.DD hh.mm.ss A (AM)', macro, dateAm, 'YYYY.MM.DD hh.mm.ss A', '2018.09.01 10.37.23 AM');
+    expect(dateString).toBe('2018.09.01 10.37.23');
+  });
 
-test('YYYY.MM.DD hh.mm.ss A (PM)', macro, datePm, 'YYYY.MM.DD hh.mm.ss A', '2018.09.01 01.37.23 PM');
+  it('YYYY.MM.DD hh.mm.ss A (AM)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY.MM.DD hh.mm.ss A');
 
-test('YYYY.MM.DD hh.mm.ss a (AM)', macro, dateAm, 'YYYY.MM.DD hh.mm.ss a', '2018.09.01 10.37.23 am');
+    expect(dateString).toBe('2018.09.01 10.37.23 AM');
+  });
 
-test('YYYY.MM.DD hh.mm.ss a (PM)', macro, datePm, 'YYYY.MM.DD hh.mm.ss a', '2018.09.01 01.37.23 pm');
+  it('YYYY.MM.DD hh.mm.ss A (PM)', () => {
+    const date = new Date(2018, 8, 1, 13, 37, 23);
+    const dateString = dateFormat(date, 'YYYY.MM.DD hh.mm.ss A');
 
-test('YYYY.MM.DD h.mm.ss a (AM)', macro, dateAm, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 10.37.23 am');
+    expect(dateString).toBe('2018.09.01 01.37.23 PM');
+  });
 
-test('YYYY.MM.DD h.mm.ss a (PM)', macro, datePm, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 1.37.23 pm');
+  it('YYYY.MM.DD hh.mm.ss a (AM)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY.MM.DD hh.mm.ss a');
 
-test('YYYY.MM.DD h.mm.ss a (PM) 2', macro, datePm0, 'YYYY.MM.DD h.mm.ss a', '2018.09.01 12.37.23 pm');
+    expect(dateString).toBe('2018.09.01 10.37.23 am');
+  });
 
-test('MM/DD/YYYY', macro, dateAm, 'MM/DD/YYYY', '09/01/2018');
+  it('YYYY.MM.DD hh.mm.ss a (PM)', () => {
+    const date = new Date(2018, 8, 1, 13, 37, 23);
+    const dateString = dateFormat(date, 'YYYY.MM.DD hh.mm.ss a');
 
-test('YYYY-MM-DD', macro, dateAm, 'YYYY-MM-DD', '2018-09-01');
+    expect(dateString).toBe('2018.09.01 01.37.23 pm');
+  });
+
+  it('YYYY.MM.DD h.mm.ss a (AM)', () => {
+    const date = new Date(2018, 8, 1, 10, 37, 23, 59);
+    const dateString = dateFormat(date, 'YYYY.MM.DD h.mm.ss a');
+
+    expect(dateString).toBe('2018.09.01 10.37.23 am');
+  });
+
+  it('YYYY.MM.DD h.mm.ss a (PM)', () => {
+    const date = new Date(2018, 8, 1, 13, 37, 23);
+    const dateString = dateFormat(date, 'YYYY.MM.DD h.mm.ss a');
+
+    expect(dateString).toBe('2018.09.01 1.37.23 pm');
+  });
+
+  it('YYYY.MM.DD h.mm.ss a (PM) 2', () => {
+    const date = new Date(2018, 8, 1, 12, 37, 23);
+    const dateString = dateFormat(date, 'YYYY.MM.DD h.mm.ss a');
+
+    expect(dateString).toBe('2018.09.01 12.37.23 pm');
+  });
+
+  it('YYYY.MM.DD h.mm.ss.SSS a (dddd) (With Timezone)', () => {
+    const date = new Date(2018, 8, 1, 12, 37, 23);
+    const dateString = dateFormat(date, 'YYYY.MM.DD h.mm.ss.SSS a (dddd)', {
+      timezone: 120
+    });
+
+    expect(dateString).toBe('2018.09.01 10.37.23.000 am (Saturday)');
+  });
+});

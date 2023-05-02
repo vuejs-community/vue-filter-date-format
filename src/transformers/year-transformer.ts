@@ -1,15 +1,15 @@
-import { IDateFormatConfig } from '../interfaces/i-date-format-config';
-import { YearFormats } from '../enums/year-formats';
-import { padStart } from '../helpers/pad-start';
+import { IDateFormatConfig } from '../interfaces/i-date-format-config.ts';
+import { YearFormats } from '../enums/year-formats.ts';
+import { defaultConfig } from '../default-config.js';
 
-export const yearTransformer = (input: Date, format: YearFormats, config: IDateFormatConfig): string => {
+export const yearTransformer = (input: Date, format: keyof typeof YearFormats, config: IDateFormatConfig = defaultConfig): string => {
   const year = 'timezone' in config ? input.getUTCFullYear() : input.getFullYear();
 
   if (format === YearFormats.YYYY) {
-    return padStart(`${year}`, 4, '0');
+    return `${year}`.padStart(4, '0');
   }
   if (format === YearFormats.YY) {
-    return padStart(`${year % 100}`, 2, '0');
+    return `${year % 100}`.padStart(2, '0');
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid year format '${format}'`);

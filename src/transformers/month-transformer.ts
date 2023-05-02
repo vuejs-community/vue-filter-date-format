@@ -1,8 +1,8 @@
-import { IDateFormatConfig } from '../interfaces/i-date-format-config';
-import { MonthFormats } from '../enums/month-formats';
-import { padStart } from '../helpers/pad-start';
+import { IDateFormatConfig } from '../interfaces/i-date-format-config.ts';
+import { MonthFormats } from '../enums/month-formats.ts';
+import { defaultConfig } from '../default-config.js';
 
-export const monthTransformer = (input: Date, format: MonthFormats, config: IDateFormatConfig): string => {
+export const monthTransformer = (input: Date, format: keyof typeof MonthFormats, config: IDateFormatConfig = defaultConfig): string => {
   const month = ('timezone' in config ? input.getUTCMonth() : input.getMonth()) + 1;
 
   if (format === MonthFormats.MMMM) {
@@ -12,7 +12,7 @@ export const monthTransformer = (input: Date, format: MonthFormats, config: IDat
     return config.monthNamesShort[month - 1];
   }
   if (format === MonthFormats.MM) {
-    return padStart(`${month}`, 2, '0');
+    return `${month}`.padStart(2, '0');
   }
   if (format === MonthFormats.M) {
     return `${month}`;

@@ -1,7 +1,8 @@
-import { IDateFormatConfig } from '../interfaces/i-date-format-config';
-import { WeekdayFormats } from '../enums/weekday-formats';
+import { IDateFormatConfig } from '../interfaces/i-date-format-config.ts';
+import { WeekdayFormats } from '../enums/weekday-formats.ts';
+import { defaultConfig } from '../default-config.js';
 
-export const weekdayTransformer = (input: Date, format: WeekdayFormats, config: IDateFormatConfig): string => {
+export const weekdayTransformer = (input: Date, format: keyof typeof WeekdayFormats, config: IDateFormatConfig = defaultConfig): string => {
   const weekday = 'timezone' in config ? input.getUTCDay() : input.getDay();
 
   if (format === WeekdayFormats.dddd) {

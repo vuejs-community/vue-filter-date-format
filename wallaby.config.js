@@ -1,28 +1,13 @@
-const wallabyVueCompiler = require('wallaby-vue-compiler');
-
-module.exports = wallaby => ({
-  compilers: {
-    '**/*.ts': wallaby.compilers.typeScript(),
-    '**/*.vue': wallabyVueCompiler(wallaby.compilers.typeScript())
-  },
-  debug: true,
-  env: {
-    params: {
-      runner: `-r ${require.resolve('esm')}`,
-    },
-    runner: 'node',
-    type: 'node'
-  },
+module.exports = () => ({
+  autoDetect: true,
   files: [
+    'src/**/*.js',
     'src/**/*.ts',
-    'src/**/*.vue',
+    '!src/**/*.spec.js',
     '!src/**/*.spec.ts'
   ],
-  setup() {
-    require('jsdom-global')();
-  },
-  testFramework: 'ava',
   tests: [
+    'src/**/*.spec.js',
     'src/**/*.spec.ts'
   ]
 });

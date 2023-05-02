@@ -1,12 +1,12 @@
-import { IDateFormatConfig } from '../interfaces/i-date-format-config';
-import { SecondsFormats } from '../enums/seconds-formats';
-import { padStart } from '../helpers/pad-start';
+import { IDateFormatConfig } from '../interfaces/i-date-format-config.ts';
+import { SecondsFormats } from '../enums/seconds-formats.ts';
+import { defaultConfig } from '../default-config.js';
 
-export const secondsTransformer = (input: Date, format: SecondsFormats, config: IDateFormatConfig): string => {
+export const secondsTransformer = (input: Date, format: keyof typeof SecondsFormats, config: IDateFormatConfig = defaultConfig): string => {
   const seconds = 'timezone' in config ? input.getUTCSeconds() : input.getSeconds();
 
   if (format === SecondsFormats.ss) {
-    return padStart(`${seconds}`, 2, '0');
+    return `${seconds}`.padStart(2, '0');
   }
   if (format === SecondsFormats.s) {
     return `${seconds}`;

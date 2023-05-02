@@ -1,21 +1,15 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "baseUrl": "./src",
     "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "lib": [
-      "esnext"
+      "ESNext"
     ],
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "noLib": false,
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "removeComments": false,
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "target": "es5"
+    "target": "ES2015"
   },
   "exclude": [
     "node_modules"

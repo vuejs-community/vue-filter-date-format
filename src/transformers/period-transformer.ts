@@ -1,7 +1,8 @@
-import { IDateFormatConfig } from '../interfaces/i-date-format-config';
-import { PeriodFormats } from '../enums/period-formats';
+import { IDateFormatConfig } from '../interfaces/i-date-format-config.ts';
+import { PeriodFormats } from '../enums/period-formats.ts';
+import { defaultConfig } from '../default-config.js';
 
-export const periodTransformer = (input: Date, format: PeriodFormats, config: IDateFormatConfig): string => {
+export const periodTransformer = (input: Date, format: keyof typeof PeriodFormats, config: IDateFormatConfig = defaultConfig): string => {
   const hours24 = 'timezone' in config ? input.getUTCHours() : input.getHours();
 
   if (format === PeriodFormats.A) {
