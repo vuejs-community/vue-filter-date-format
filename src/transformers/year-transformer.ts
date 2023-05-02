@@ -6,10 +6,10 @@ export const yearTransformer = (input: Date, format: YearFormats, config: IDateF
   const year = 'timezone' in config ? input.getUTCFullYear() : input.getFullYear();
 
   if (format === YearFormats.YYYY) {
-    return padStart(`${year}`, 4);
+    return padStart(`${year}`, 4, '0');
   }
   if (format === YearFormats.YY) {
-    return padStart(`${year % 100}`, 2);
+    return padStart(`${year % 100}`, 2, '0');
   }
 
   throw new Error(`[vue-filter-date-format]: Invalid year format '${format}'`);

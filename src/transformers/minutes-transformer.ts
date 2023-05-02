@@ -6,7 +6,7 @@ export const minutesTransformer = (input: Date, format: MinutesFormats, config: 
   const minutes = 'timezone' in config ? input.getUTCMinutes() : input.getMinutes();
 
   if (format === MinutesFormats.mm) {
-    return padStart(`${minutes}`, 2);
+    return padStart(`${minutes}`, 2, '0');
   }
   if (format === MinutesFormats.m) {
     return `${minutes}`;

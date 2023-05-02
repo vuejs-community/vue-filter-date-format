@@ -12,7 +12,7 @@ export const monthTransformer = (input: Date, format: MonthFormats, config: IDat
     return config.monthNamesShort[month - 1];
   }
   if (format === MonthFormats.MM) {
-    return padStart(`${month}`, 2);
+    return padStart(`${month}`, 2, '0');
   }
   if (format === MonthFormats.M) {
     return `${month}`;

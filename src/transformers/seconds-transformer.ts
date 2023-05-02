@@ -6,7 +6,7 @@ export const secondsTransformer = (input: Date, format: SecondsFormats, config: 
   const seconds = 'timezone' in config ? input.getUTCSeconds() : input.getSeconds();
 
   if (format === SecondsFormats.ss) {
-    return padStart(`${seconds}`, 2);
+    return padStart(`${seconds}`, 2, '0');
   }
   if (format === SecondsFormats.s) {
     return `${seconds}`;

@@ -7,13 +7,13 @@ export const hoursTransformer = (input: Date, format: HoursFormats, config: IDat
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
 
   if (format === HoursFormats.HH) {
-    return padStart(`${hours24}`, 2);
+    return padStart(`${hours24}`, 2, '0');
   }
   if (format === HoursFormats.H) {
     return `${hours24}`;
   }
   if (format === HoursFormats.hh) {
-    return padStart(`${hours12}`, 2);
+    return padStart(`${hours12}`, 2, '0');
   }
   if (format === HoursFormats.h) {
     return `${hours12}`;

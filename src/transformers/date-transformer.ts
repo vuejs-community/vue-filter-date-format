@@ -6,7 +6,7 @@ export const dateTransformer = (input: Date, format: DateFormats, config: IDateF
   const date = 'timezone' in config ? input.getUTCDate() : input.getDate();
 
   if (format === DateFormats.DD) {
-    return padStart(`${date}`, 2);
+    return padStart(`${date}`, 2, '0');
   }
   if (format === DateFormats.D) {
     return `${date}`;
