@@ -6,7 +6,7 @@
     "vue-filter"
   ],
   "license": "MIT",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": "Ed Nikolenko <4426698+ednikolenko@users.noreply.github.com>",
   "type": "module",
   "main": "dist/vue-filter-date-format.cjs",
