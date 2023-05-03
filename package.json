@@ -9,7 +9,7 @@
   "version": "1.7.0",
   "author": "Ed Nikolenko <4426698+ednikolenko@users.noreply.github.com>",
   "type": "module",
-  "main": "dist/index.cjs.js",
+  "main": "dist/vue-filter-date-format.cjs",
   "module": "dist/vue-filter-date-format.js",
   "types": "dist/index.d.ts",
   "files": [
